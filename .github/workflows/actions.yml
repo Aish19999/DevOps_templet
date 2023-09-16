@@ -31,6 +31,7 @@ jobs:
               # Add your ANT-related actions here
             elif [ "$build_tool" == "maven" ]; then
               echo "Build tool is Maven."
+              uses: DevOps_templet/.github/workflows/mavenBuild.yml
               # Add your Maven-related actions here
             elif [ "$build_tool" == "gradle" ]; then
               echo "Build tool is Gradle."

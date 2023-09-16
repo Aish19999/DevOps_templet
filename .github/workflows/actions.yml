@@ -1,0 +1,60 @@
+name: Pipeline Type Check
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  check-pipeline-type:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Read pipelineConfig.yml
+        run: |
+          # Define the path to the pipelineConfig.yml file
+          pipeline_config_path="${{ github.workspace }}/pipelineconfig.yml"
+
+          # Use a tool like yq to parse the YAML file (install yq if needed)
+          pipeline_type=$(yq eval '.pipelineType' "${pipeline_config_path}")
+          buildTool=$(yq eval '.buildTool' "${pipeline_config_path}")
+
+          # Perform actions based on the pipelineType
+          if [ "$pipeline_type" == "Java" ]; then
+            echo "Detected Java pipeline."
+
+            if [ "$build_tool" == "ANT" ]; then
+              echo "Build tool is ANT."
+              # Add your ANT-related actions here
+            elif [ "$build_tool" == "Maven" ]; then
+              echo "Build tool is Maven."
+              # Add your Maven-related actions here
+            elif [ "$build_tool" == "Gradle" ]; then
+              echo "Build tool is Gradle."
+              # Add your Gradle-related actions here
+            else
+              echo "Unknown build tool: $build_tool"
+              # Add actions for handling unknown build tools here
+            fi
+          else
+            echo "Unknown pipeline type: $pipeline_type"
+            # Add actions for handling unknown pipeline types here
+          fi
+
+            # Add your Java-related actions here
+          elif [ "$pipeline_type" == "Python" ]; then
+            echo "Detected Python pipeline."
+            # Add your Python-related actions here
+          elif [ "$pipeline_type" == ".NET" ]; then
+            echo "Detected .NET pipeline."
+            # Add your .NET-related actions here
+          else
+            echo "Unknown pipeline type: $pipeline_type"
+            # Add actions for handling unknown pipeline types here
+          fi
+
+        # Make sure to specify the working directory
+        working-directory: ${{ github.workspace }}

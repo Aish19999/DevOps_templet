@@ -1,4 +1,4 @@
-name: Pipeline Type Check
+name: CICD_pipeline
 
 on:
   workflow_call:

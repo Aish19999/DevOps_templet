@@ -1,9 +1,7 @@
 name: Pipeline Type Check
 
 on:
-  push:
-    branches:
-      - main
+  workflow_call:
 
 jobs:
   check-pipeline-type:

@@ -20,10 +20,29 @@ jobs:
 
           # Use a tool like yq to parse the YAML file (install yq if needed)
           pipeline_type=$(yq eval '.pipelineType' "${pipeline_config_path}")
-
+          build_tool=$(yq eval '.buildTool' "${pipeline_config_path}")
           # Perform actions based on the pipelineType
           if [ "$pipeline_type" == "Java" ]; then
             echo "Detected Java pipeline."
+
+            if [ "$build_tool" == "ANT" ]; then
+              echo "Build tool is ANT."
+              # Add your ANT-related actions here
+            elif [ "$build_tool" == "Maven" ]; then
+              echo "Build tool is Maven."
+              # Add your Maven-related actions here
+            elif [ "$build_tool" == "Gradle" ]; then
+              echo "Build tool is Gradle."
+              # Add your Gradle-related actions here
+            else
+              echo "Unknown build tool: $build_tool"
+              # Add actions for handling unknown build tools here
+            fi
+          else
+            echo "Unknown pipeline type: $pipeline_type"
+            # Add actions for handling unknown pipeline types here
+          fi
+
             # Add your Java-related actions here
           elif [ "$pipeline_type" == "Python" ]; then
             echo "Detected Python pipeline."

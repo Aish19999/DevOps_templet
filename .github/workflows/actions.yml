@@ -23,16 +23,16 @@ jobs:
           buildTool=$(yq eval '.buildTool' "${pipeline_config_path}")
 
           # Perform actions based on the pipelineType
-          if [ "$pipeline_type" == "Java" ]; then
+          if [ "$pipeline_type" == "java" ]; then
             echo "Detected Java pipeline."
 
-            if [ "$build_tool" == "ANT" ]; then
+            if [ "$build_tool" == "ant" ]; then
               echo "Build tool is ANT."
               # Add your ANT-related actions here
-            elif [ "$build_tool" == "Maven" ]; then
+            elif [ "$build_tool" == "maven" ]; then
               echo "Build tool is Maven."
               # Add your Maven-related actions here
-            elif [ "$build_tool" == "Gradle" ]; then
+            elif [ "$build_tool" == "gradle" ]; then
               echo "Build tool is Gradle."
               # Add your Gradle-related actions here
             else
@@ -45,10 +45,10 @@ jobs:
           fi
 
             # Add your Java-related actions here
-          elif [ "$pipeline_type" == "Python" ]; then
+          elif [ "$pipeline_type" == "python" ]; then
             echo "Detected Python pipeline."
             # Add your Python-related actions here
-          elif [ "$pipeline_type" == ".NET" ]; then
+          elif [ "$pipeline_type" == ".netT" ]; then
             echo "Detected .NET pipeline."
             # Add your .NET-related actions here
           else

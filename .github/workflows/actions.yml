@@ -21,14 +21,11 @@ jobs:
 
       - name: Read pipelineConfig.yml
         run: |
-          # Define the path to the pipelineConfig.yml file
-          #pipeline_config_path="${{ github.workspace }}/pipelineconfig.yml"
-
-          # Use a tool like yq to parse the YAML file (install yq if needed)
-          #pipeline_type=$(yq eval '.pipelineType' "${pipeline_config_path}")
-          #buildTool=$(yq eval '.buildTool' "${pipeline_config_path}")
-
-          # Perform actions based on the pipelineType
+          echo "Received value: ${{ workflow.event.inputs.pipelineType }}"
+          echo "Received value: ${{ workflow.event.inputs.buildTool }}"
+          pipelineType = ${{ workflow.event.inputs.pipelineType }}
+          buildTool = ${{ workflow.event.inputs.buildTool }}
+          
           if [ pipelineType == "java" ]; then
             echo "Detected Java pipeline."
 

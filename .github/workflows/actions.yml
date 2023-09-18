@@ -1,64 +1,19 @@
-name: CICD_pipeline
+name: Second Workflow
 
 on:
-  workflow_call:
-    inputs:
-      pipelineType:
-        required: true
-        type: string
-      buildTool:
-        required: true
-        type: string
-      
+  workflow_run:
+    workflows: ["Main Workflow"]
+    types:
+      - completed
 
 jobs:
-  check-pipeline-type:
+  second_job:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
-
-      - name: Read pipelineConfig.yml
+      - name: Deserialize Inputs
         run: |
-          echo "Received value: ${{ workflow.event.inputs.pipelineType }}"
-          echo "Received value: ${{ workflow.event.inputs.buildTool }}"
-          pipelineType = ${{ workflow.event.inputs.pipelineType }}
-          buildTool = ${{ workflow.event.inputs.buildTool }}
-          
-          if [ pipelineType == "java" ]; then
-            echo "Detected Java pipeline."
-
-            if [ buildTool == "ant" ]; then
-              echo "Build tool is ANT."
-              # Add your ANT-related actions here
-            elif [ buildTool == "maven" ]; then
-              echo "Build tool is Maven."
-              uses: DevOps_templet/.github/workflows/mavenBuild.yml
-              # Add your Maven-related actions here
-            elif [ buildTool== "gradle" ]; then
-              echo "Build tool is Gradle."
-              # Add your Gradle-related actions here
-            else
-              echo "Unknown build tool: $buildTool"
-              # Add actions for handling unknown build tools here
-            fi
-          else
-            echo "Unknown pipeline type: $pipelineType"
-            # Add actions for handling unknown pipeline types here
-          fi
-
-            # Add your Java-related actions here
-          elif [ pipelineType == "python" ]; then
-            echo "Detected Python pipeline."
-            # Add your Python-related actions here
-          elif [ pipelineType == ".netT" ]; then
-            echo "Detected .NET pipeline."
-            # Add your .NET-related actions here
-          else
-            echo "Unknown pipeline type: pipelineType"
-            # Add actions for handling unknown pipeline types here
-          fi
-
-        # Make sure to specify the working directory
-        working-directory: ${{ github.workspace }}
+          pipelineType=${{ fromJson(github.event.inputs.pipelineType) }}
+          buildTool=${{ fromJson(github.event.inputs.buildTool) }}
+          echo "Received pipelineType: $pipelineType"
+          echo "Received buildTool: $buildTool"

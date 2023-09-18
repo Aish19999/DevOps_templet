@@ -13,7 +13,8 @@ jobs:
     steps:
       - name: Deserialize Inputs
         run: |
-          pipelineType=${{ fromJson(github.event.inputs.pipelineType) }}
-          buildTool=${{ fromJson(github.event.inputs.buildTool) }}
+          inputs="${{ github.event.inputs }}"
+          pipelineType=$(echo "$inputs" | jq -r '.pipelineType')
+          buildTool=$(echo "$inputs" | jq -r '.buildTool')
           echo "Received pipelineType: $pipelineType"
           echo "Received buildTool: $buildTool"

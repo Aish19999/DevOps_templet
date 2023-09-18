@@ -1,6 +1,7 @@
 name: Second Workflow
 
 on:
+  workflow_call:
   workflow_run:
     workflows: ["Main Workflow"]
     types:

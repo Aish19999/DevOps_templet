@@ -2,6 +2,13 @@ name: Second Workflow
 
 on:
   workflow_call:
+    inputs:
+      pipelineType:
+        required: true
+        type: string
+      buildTool:
+         required: true
+         type: string
   workflow_run:
     workflows: ["Main Workflow"]
     types:
@@ -14,8 +21,5 @@ jobs:
     steps:
       - name: Deserialize Inputs
         run: |
-          inputs="${{ github.event.inputs }}"
-          pipelineType=$(echo "$inputs" | jq -r '.pipelineType')
-          buildTool=$(echo "$inputs" | jq -r '.buildTool')
-          echo "Received pipelineType: $pipelineType"
-          echo "Received buildTool: $buildTool"
+          echo "Received pipelineType: ${{input.pipelineType}}"
+          echo "Received buildTool: ${{input.buildTool}}"

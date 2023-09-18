@@ -21,5 +21,5 @@ jobs:
     steps:
       - name: Deserialize Inputs
         run: |
-          echo "Received pipelineType: ${{input.pipelineType}}"
-          echo "Received buildTool: ${{input.buildTool}}"
+          echo "Received pipelineType: ${{inputs.pipelineType}}"
+          echo "Received buildTool: ${{inputs.buildTool}}"

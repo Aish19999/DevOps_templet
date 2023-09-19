@@ -13,9 +13,9 @@ jobs:
   second_job:
     runs-on: ubuntu-latest
 
-    env:
-      pipelineType: ${{steps.read_config.outputs.pipelineType}}
-      buildTool:  ${{steps.read_config.outputs.buildTool}}
+#    env:
+#      pipelineType: ${{steps.read_config.outputs.pipelineType}}
+#      buildTool:  ${{steps.read_config.outputs.buildTool}}
     
 
     steps:
@@ -39,15 +39,14 @@ jobs:
           buildTool=$(yq eval '.buildTool' "${pipeline_config_path}")
           echo "PipelineType: $pipelineType"
           echo "BuildTool: $buildTool"
-          echo "pipelineType=$pipelineType" >> $GITHUB_OUTPUT
-          echo "buildTool=$buildTool" >> $GITHUB_OUTPUT
+          echo "pipelineType=$pipelineType" >> $GITHUB_ENV
+          echo "buildTool=$buildTool" >> $GITHUB_ENV
+#          echo "pipelineType=$pipelineType" >> $GITHUB_OUTPUT
+#          echo "buildTool=$buildTool" >> $GITHUB_OUTPUT
           
 
       - name: Print the output
         run: |
-          # set varaibles
-          echo "pipelineType=${{ steps.read_config.outputs.pipelineType }}" >> $GITHUB_ENV
-          echo "buildTool=${{ steps.read_config.outputs.buildTool }}" >> $GITHUB_ENV
           echo "pipelineType: ${{env.pipelineType}}"
           echo "buildTool: ${{env.buildTool"}}
 #         echo "PipelineType: ${{steps.read_config.outputs.pipelineType}}"

@@ -1,0 +1,96 @@
+name: Second Workflow
+
+on:
+  workflow_call:
+  workflow_dispatch:
+    
+  workflow_run:
+    workflows: ["Main Workflow"]
+    types:
+      - completed
+
+jobs:
+  second_job:
+    runs-on: ubuntu-latest
+
+    outputs:
+      pipelineType: ${{steps.read_config.outputs.pipelineType}}
+      buildTool:  ${{steps.read_config.outputs.buildTool}}
+    
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+        
+      - name: Install jq and yq
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y jq
+          sudo curl -sL https://github.com/mikefarah/yq/releases/download/v4.13.2/yq_linux_amd64 -o /usr/bin/yq
+          sudo chmod +x /usr/bin/yq
+
+      - name: Read pipelineconfig
+        id: read_config
+        run: |
+          pipeline_config_path="${{ github.workspace }}/pipelineconfig.yml"
+
+          # Use a tool like yq to parse the YAML file (install yq if needed)
+          pipelineType=$(yq eval '.pipelineType' "${pipeline_config_path}")
+          buildTool=$(yq eval '.buildTool' "${pipeline_config_path}")
+          echo "PipelineType: $pipelineType"
+          echo "BuildTool: $buildTool"
+          echo "pipelineType=$pipelineType" >> $GITHUB_OUTPUT
+          echo "buildTool=$buildTool" >> $GITHUB_OUTPUT
+ #         echo "pipelineType=$pipelineType" >> $GITHUB_ENV
+ #         echo "buildTool=$buildTool" >> $GITHUB_ENV
+          
+          
+
+  Build_and_test:
+    needs: second_job
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Running build and test
+        run: |
+          pipelineType=${{ needs.second_job.outputs.pipelineType }}
+          buildTool=${{ needs.second_job.outputs.buildTool }}
+          echo "pipelineType: $pipelineType"
+          echo "buildTool: $buildTool"
+          
+          # Perform actions based on the pipelineType
+          if [ $pipelineType == "java" ]; then
+            echo "Detected Java pipeline."
+            if [ $buildTool == "ant" ]; then
+              echo "Build tool is ANT."
+              # Add your ANT-related actions here
+            elif [ $buildTool == "maven" ]; then
+              echo "Build tool is Maven."
+              # Add your Maven-related actions here
+              uses: ./.github/workflows/mavenBuild.yml
+            elif [ $buildTool == "gradle" ]; then
+              echo "Build tool is Gradle."
+              # Add your Gradle-related actions here
+            else
+              echo "Unknown build tool:$buildTool"
+              # Add actions for handling unknown build tools here
+            fi
+          elif [ $pipelineType == "python" ]; then
+            echo "Detected Python pipeline."
+            # Add your Python-related actions here
+          elif [ $pipelineType == ".net" ]; then
+            echo "Detected .NET pipeline."
+            # Add your .NET-related actions here
+          else
+            echo "Unknown pipeline type: $pipelineType"
+            # Add actions for handling unknown pipeline types here
+          fi
+
+ 
+     
+ 
+#         echo "PipelineType: ${{steps.read_config.outputs.pipelineType}}"
+#         echo "BuildTool: ${{steps.read_config.outputs.buildTool}}"
+
+          
+       

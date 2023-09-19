@@ -47,8 +47,8 @@ jobs:
  #         echo "buildTool=$buildTool" >> $GITHUB_ENV
       - name: Debug Pipeline Type and Build Tool
         run: |
-          echo "Pipeline Type: $pipelineTyp"
-          echo "Build Tool: $buildTool"
+          echo "Pipeline Type: ${{env.pipelineType}}"
+          echo "Build Tool: ${{env.buildTool}}"
 
           
       - name: Conditional Step

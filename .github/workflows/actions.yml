@@ -43,7 +43,12 @@ jobs:
           echo "buildTool=$buildTool" >> $GITHUB_OUTPUT
  #         echo "pipelineType=$pipelineType" >> $GITHUB_ENV
  #         echo "buildTool=$buildTool" >> $GITHUB_ENV
-          
+
+  CallMavenbuild:
+    if: ${{ needs.second_job.outputs.pipelineType == 'java' && needs.second_job.outputs.buildTool == 'maven' }}
+    uses: Aish19999/DevOps_templet/.github/workflows/mavenBuild.yml@6232093639
+  
+   
  #     - name: pipeline condition
  #       if: ${{ needs.second_job.outputs.pipelineType == 'java' && needs.second_job.outputs.buildTool == 'maven' }} 
  #       uses: Aish19999/DevOps_templet/.github/workflows/mavenBuild.yml@6232093639

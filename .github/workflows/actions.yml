@@ -14,8 +14,8 @@ jobs:
     runs-on: ubuntu-latest
 
     env:  # Define environment variables specific to this job
-      pipelineType: ${{ steps.read_config.outputs.pipelineType }}
-      buildTool: ${{ steps.read_config.outputs.buildTool }}
+      pipelineType: ${{ github.event.inputs.pipelineType }}
+      buildTool: ${{ github.event.inputs.buildTool  }}
       
     outputs:
       pipelineType: ${{steps.read_config.outputs.pipelineType}}

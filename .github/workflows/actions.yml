@@ -49,7 +49,40 @@ jobs:
         run: |
           echo "pipelineType: ${{env.pipelineType}}"
           echo "buildTool: ${{env.buildTool}}"
+          
+          # Perform actions based on the pipelineType
+          if [ "${{env.pipelineType}}" == "java" ]; then
+            echo "Detected Java pipeline."
+            if [ "${{env.buildTool}}" == "ant" ]; then
+              echo "Build tool is ANT."
+              # Add your ANT-related actions here
+            elif [ "${{env.buildTool}}" == "maven" ]; then
+              echo "Build tool is Maven."
+              # Add your Maven-related actions here
+            elif [ "${{env.buildTool}}" == "gradle" ]; then
+              echo "Build tool is Gradle."
+              # Add your Gradle-related actions here
+            else
+              echo "Unknown build tool: ${{env.buildTool}}"
+              # Add actions for handling unknown build tools here
+            fi
+          else
+            echo "Unknown pipeline type: ${{env.pipelineType}}"
+            # Add actions for handling unknown pipeline types here
+          fi
+            # Add your Java-related actions here
+          elif [ "${{env.pipelineType}}" == "python" ]; then
+            echo "Detected Python pipeline."
+            # Add your Python-related actions here
+          elif [ "${{env.pipelineType}}" == ".net" ]; then
+            echo "Detected .NET pipeline."
+            # Add your .NET-related actions here
+          else
+            echo "Unknown pipeline type: ${{env.pipelineType}}"
+            # Add actions for handling unknown pipeline types here
+          fi
 #         echo "PipelineType: ${{steps.read_config.outputs.pipelineType}}"
 #         echo "BuildTool: ${{steps.read_config.outputs.buildTool}}"
+
           
        

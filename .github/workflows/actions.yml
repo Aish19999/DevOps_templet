@@ -40,3 +40,10 @@ jobs:
           echo "BuildTool: $buildTool"
           echo "pipelineType=$pipelineType" >> $GITHUB_OUTPUT
           echo "buildTool=$buildTool" >> $GITHUB_OUTPUT
+
+      - name: Print the output
+        run: |
+         echo "PipelineType: $pipelineType"
+         echo "BuildTool: $buildTool"
+          
+       

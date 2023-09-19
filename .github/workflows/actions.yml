@@ -39,10 +39,11 @@ jobs:
           buildTool=$(yq eval '.buildTool' "${pipeline_config_path}")
           echo "PipelineType: $pipelineType"
           echo "BuildTool: $buildTool"
-          echo "pipelineType=$pipelineType" >> $GITHUB_ENV
-          echo "buildTool=$buildTool" >> $GITHUB_ENV
-#          echo "pipelineType=$pipelineType" >> $GITHUB_OUTPUT
-#          echo "buildTool=$buildTool" >> $GITHUB_OUTPUT
+          echo "pipelineType=$pipelineType" >> $GITHUB_OUTPUT
+          echo "buildTool=$buildTool" >> $GITHUB_OUTPUT
+ #         echo "pipelineType=$pipelineType" >> $GITHUB_ENV
+ #         echo "buildTool=$buildTool" >> $GITHUB_ENV
+          
           
 
   Build_and_test:
@@ -52,8 +53,10 @@ jobs:
     steps:
       - name: Running build and test
         run: |
-          echo "pipelineType: ${{env.pipelineType}}"
-          echo "buildTool: ${{env.buildTool}}"
+          pipelineType=${{ steps.read_config.outputs.pipelineType }}
+          buildTool=${{ steps.read_config.outputs.buildTool }}
+          echo "pipelineType: $pipelineType"
+          echo "buildTool: $buildTool"
           
           # Perform actions based on the pipelineType
           if [ "${{env.pipelineType}}" == "java" ]; then

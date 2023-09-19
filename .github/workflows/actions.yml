@@ -79,7 +79,7 @@ jobs:
              # Use the workflow name or file path to trigger the workflow
              workflow_run_id=$(gh workflow run mavenBuild.yml \
              --ref "${{ github.ref }}" \
-             --json id --jq '.id')
+            --json id)
              echo "Triggered workflow with ID: $workflow_run_id"
           fi
 

@@ -53,12 +53,6 @@ jobs:
         run: |
           echo "Pipeline Type: ${{env.pipelineType}}"
           echo "Build Tool: ${{env.buildTool}}"
-
-      - name: Set up GitHub CLI
-        run: |
-          echo "Installing GitHub CLI"
-          gh auth login --with-token "${{ env.GH_TOKEN }}"  # Authenticate with GitHub CLI using GH_TOKEN
-          gh --version  # Check GitHub CLI version
           
       - name: Conditional Step
         run: |
@@ -82,10 +76,7 @@ jobs:
     
           if [ -n "$triggered_workflow" ]; then
              echo "Triggering workflow: mavenBuild.yml"
-             # Use the workflow name or file path to trigger the workflow
-             workflow_run_id=$(gh workflow run mavenBuild.yml \
-             --ref "${{ github.ref }}" \
-            --json id)
+             gh workflow run mavenBuild.yml --ref "${{ github.ref }}"
              echo "Triggered workflow with ID: $workflow_run_id"
           fi
 

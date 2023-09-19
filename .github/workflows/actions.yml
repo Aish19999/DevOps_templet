@@ -44,7 +44,7 @@ jobs:
 
       - name: Print the output
         run: |
-         echo "PipelineType: $pipelineType"
-         echo "BuildTool: $buildTool"
+         echo "PipelineType: ${{outputs.pipelineType}}"
+         echo "BuildTool: ${{outputs.buildTool}}"
           
        

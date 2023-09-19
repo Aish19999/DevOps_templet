@@ -2,6 +2,7 @@ name: Second Workflow
 
 on:
   workflow_call:
+  workflow_dispatch:
     
   workflow_run:
     workflows: ["Main Workflow"]

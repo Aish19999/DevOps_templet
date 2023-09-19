@@ -49,48 +49,70 @@ jobs:
   Build_and_test:
     needs: second_job
     runs-on: ubuntu-latest
+    if: ${{ needs.second_job.outputs.pipelineType == 'java' && needs.second_job.outputs.buildTool == 'gradle' }}
 
     steps:
-      - name: Running build and test
+      - name: Running Java Gradle build
+        uses: ./.github/workflows/javaGradleBuild.yml
+        # Add configuration for Java Gradle build here
+
+  Build_and_test_python:
+    needs: second_job
+    runs-on: ubuntu-latest
+    if: ${{ needs.second_job.outputs.pipelineType == 'java' && needs.second_job.outputs.buildTool == 'ant' }}
+
+    steps:
+      - name: Running Java ANT build
+        uses: ./.github/workflows/javaAntBuild.yml
+        # Add configuration for Java ANT build here
+
+  Build_and_test_java_maven:
+    needs: second_job
+    runs-on: ubuntu-latest
+    if: ${{ needs.second_job.outputs.pipelineType == 'java' && needs.second_job.outputs.buildTool == 'maven' }}
+
+    steps:
+      - name: Running Java Maven build
+        uses: ./.github/workflows/mavenBuild.yml
+        # Add configuration for Java Maven build here
+
+  Build_and_test_java_gradle:
+    needs: second_job
+    runs-on: ubuntu-latest
+    if: ${{ needs.second_job.outputs.pipelineType == 'java' && needs.second_job.outputs.buildTool == 'gradle' }}
+
+    steps:
+      - name: Running Java Gradle build
+        uses: ./.github/workflows/javaGradleBuild.yml
+        # Add configuration for Java Gradle build here
+
+  Build_python:
+    needs: second_job
+    runs-on: ubuntu-latest
+    if: ${{ needs.second_job.outputs.pipelineType == 'python' }}
+
+    steps:
+      - name: Running Python build
+        uses: ./.github/workflows/pythonBuild.yml
+        # Add configuration for Python build here
+
+  Build_and_test_dotnet:
+    needs: second_job
+    runs-on: ubuntu-latest
+    if: ${{ needs.second_job.outputs.pipelineType == '.net' }}
+
+    steps:
+      - name: Running .NET build
+        uses: ./.github/workflows/dotnetBuild.yml
+        # Add configuration for .NET build here
+
+  Unknown_pipeline_type:
+    needs: second_job
+    runs-on: ubuntu-latest
+    if: ${{ needs.second_job.outputs.pipelineType != 'java' && needs.second_job.outputs.pipelineType != 'python' && needs.second_job.outputs.pipelineType != '.net' }}
+
+    steps:
+      - name: Handling unknown pipeline type
         run: |
-          pipelineType=${{ needs.second_job.outputs.pipelineType }}
-          buildTool=${{ needs.second_job.outputs.buildTool }}
-          echo "pipelineType: $pipelineType"
-          echo "buildTool: $buildTool"
-          
-          # Perform actions based on the pipelineType
-          if [ "$pipelineType" == "java" ]; then
-            echo "Detected Java pipeline."
-            if [ "$buildTool" == "ant" ]; then
-              echo "Build tool is ANT."
-              # Add your ANT-related actions here
-            elif [ "$buildTool" == "maven" ]; then
-              echo "Build tool is Maven."
-              # Add your Maven-related actions here
-              uses: ./.github/workflows/mavenBuild.yml
-            elif [ "$buildTool" == "gradle" ]; then
-              echo "Build tool is Gradle."
-              # Add your Gradle-related actions here
-            else
-              echo "Unknown build tool:$buildTool"
-              # Add actions for handling unknown build tools here
-            fi
-          elif [ "$pipelineType" == "python" ]; then
-            echo "Detected Python pipeline."
-            # Add your Python-related actions here
-          elif [ "$pipelineType" == ".net" ]; then
-            echo "Detected .NET pipeline."
-            # Add your .NET-related actions here
-          else
-            echo "Unknown pipeline type: $pipelineType"
-            # Add actions for handling unknown pipeline types here
-          fi
-
- 
-     
- 
-#         echo "PipelineType: ${{steps.read_config.outputs.pipelineType}}"
-#         echo "BuildTool: ${{steps.read_config.outputs.buildTool}}"
-
-          
-       
+          echo "Unknown pipeline type: ${{ needs.second_job.outputs.pipelineType }}"
+          # Add actions for handling unknown pipeline types here

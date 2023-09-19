@@ -3,8 +3,6 @@ name: Java maven build
 on:
   workflow_call:
   workflow_run:
-    workflows: ["Second Workflow"]
- 
 
 jobs:
   build_test:

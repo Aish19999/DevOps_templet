@@ -63,8 +63,8 @@ jobs:
               # Add your ANT-related actions here
             elif [ "${{env.buildTool}}" == "maven" ]; then
               echo "Build tool is Maven."
-              uses: ./.github/workflows/mavenBuild.yml
               # Add your Maven-related actions here
+              uses: ./.github/workflows/mavenBuild.yml
             elif [ "${{env.buildTool}}" == "gradle" ]; then
               echo "Build tool is Gradle."
               # Add your Gradle-related actions here
@@ -72,11 +72,6 @@ jobs:
               echo "Unknown build tool: ${{env.buildTool}}"
               # Add actions for handling unknown build tools here
             fi
-          else
-            echo "Unknown pipeline type: ${{env.pipelineType}}"
-            # Add actions for handling unknown pipeline types here
-          fi
-            # Add your Java-related actions here
           elif [ "${{env.pipelineType}}" == "python" ]; then
             echo "Detected Python pipeline."
             # Add your Python-related actions here
@@ -87,6 +82,10 @@ jobs:
             echo "Unknown pipeline type: ${{env.pipelineType}}"
             # Add actions for handling unknown pipeline types here
           fi
+
+ 
+     
+ 
 #         echo "PipelineType: ${{steps.read_config.outputs.pipelineType}}"
 #         echo "BuildTool: ${{steps.read_config.outputs.buildTool}}"
 

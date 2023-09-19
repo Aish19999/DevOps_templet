@@ -16,7 +16,7 @@ jobs:
     env:  # Define environment variables specific to this job
       pipelineType: ${{ github.event.inputs.pipelineType }}
       buildTool: ${{ github.event.inputs.buildTool  }}
-#      GH_TOKEN: ${{ secrets.ACTIONS_KEY }}
+      GH_TOKEN: ${{ secrets.ACTIONS_KEY }}
       
     outputs:
       pipelineType: ${{steps.read_config.outputs.pipelineType}}
@@ -29,7 +29,6 @@ jobs:
 
       - name: Set up GitHub CLI
         run: |
-          echo "GH_TOKEN=${{ secrets.ACTIONS_KEY }}" >> $GITHUB_ENV
           gh --version  # Check GitHub CLI version  
         
       - name: Install jq and yq

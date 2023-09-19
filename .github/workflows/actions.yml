@@ -46,7 +46,7 @@ jobs:
           
       - name: pipeline condition
         if: ${{ needs.second_job.outputs.pipelineType == 'java' && needs.second_job.outputs.buildTool == 'maven' }} 
-        uses: Aish19999/DevOps_templet/.github/workflows/mavenBuild.yml@main
+        uses: Aish19999/DevOps_templet/.github/workflows/mavenBuild.yml@6232093639
         
 
   # Build_and_test:

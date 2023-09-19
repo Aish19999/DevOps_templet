@@ -45,7 +45,12 @@ jobs:
 #          echo "buildTool=$buildTool" >> $GITHUB_OUTPUT
           
 
-      - name: Print the output
+  Build_and_test:
+    needs: second_job
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Running build and test
         run: |
           echo "pipelineType: ${{env.pipelineType}}"
           echo "buildTool: ${{env.buildTool}}"
@@ -58,7 +63,7 @@ jobs:
               # Add your ANT-related actions here
             elif [ "${{env.buildTool}}" == "maven" ]; then
               echo "Build tool is Maven."
-              uses: Aish19999/DevOps_templet/.github/workflows/mavenBuild.yml
+              uses: ./.github/workflows/mavenBuild.yml
               # Add your Maven-related actions here
             elif [ "${{env.buildTool}}" == "gradle" ]; then
               echo "Build tool is Gradle."

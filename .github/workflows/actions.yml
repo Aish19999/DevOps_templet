@@ -41,11 +41,15 @@ jobs:
           echo "BuildTool: $buildTool"
           echo "pipelineType=$pipelineType" >> $GITHUB_OUTPUT
           echo "buildTool=$buildTool" >> $GITHUB_OUTPUT
+          
 
       - name: Print the output
         run: |
-          echo "pipelineType: $pipelineType"
-          echo "buildTool: $buildTool"
+          # set varaibles
+          echo "pipelineType=${{ steps.read_config.outputs.pipelineType }}" >> $GITHUB_ENV
+          echo "buildTool=${{ steps.read_config.outputs.buildTool }}" >> $GITHUB_ENV
+          echo "pipelineType: ${{env.pipelineType}}"
+          echo "buildTool: ${{env.buildTool"}}
 #         echo "PipelineType: ${{steps.read_config.outputs.pipelineType}}"
 #         echo "BuildTool: ${{steps.read_config.outputs.buildTool}}"
           

@@ -59,26 +59,26 @@ jobs:
           echo "buildTool: $buildTool"
           
           # Perform actions based on the pipelineType
-          if [ $pipelineType == "java" ]; then
+          if [ "$pipelineType" == "java" ]; then
             echo "Detected Java pipeline."
-            if [ $buildTool == "ant" ]; then
+            if [ "$buildTool" == "ant" ]; then
               echo "Build tool is ANT."
               # Add your ANT-related actions here
-            elif [ $buildTool == "maven" ]; then
+            elif [ "$buildTool" == "maven" ]; then
               echo "Build tool is Maven."
               # Add your Maven-related actions here
               uses: ./.github/workflows/mavenBuild.yml
-            elif [ $buildTool == "gradle" ]; then
+            elif [ "$buildTool" == "gradle" ]; then
               echo "Build tool is Gradle."
               # Add your Gradle-related actions here
             else
               echo "Unknown build tool:$buildTool"
               # Add actions for handling unknown build tools here
             fi
-          elif [ $pipelineType == "python" ]; then
+          elif [ "$pipelineType" == "python" ]; then
             echo "Detected Python pipeline."
             # Add your Python-related actions here
-          elif [ $pipelineType == ".net" ]; then
+          elif [ "$pipelineType" == ".net" ]; then
             echo "Detected .NET pipeline."
             # Add your .NET-related actions here
           else

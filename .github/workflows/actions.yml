@@ -76,9 +76,9 @@ jobs:
     
           if [ -n "$triggered_workflow" ]; then
              echo "Triggering workflow: mavenBuild.yml"
+             # Use the workflow name or file path to trigger the workflow
              workflow_run_id=$(gh workflow run mavenBuild.yml \
              --ref "${{ github.ref }}" \
-             --workflow-id 6232093639 \
              --json id --jq '.id')
              echo "Triggered workflow with ID: $workflow_run_id"
           fi

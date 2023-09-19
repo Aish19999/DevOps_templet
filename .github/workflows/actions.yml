@@ -57,15 +57,15 @@ jobs:
           
       - name: Conditional Step
         run: |
-          if [ "$PIPELINE_TYPE" == "java" ]; then
-            if [ "$BUILD_TOOL" == "maven" ]; then
+          if [ "${{env.pipelineType}}" == "java" ]; then
+            if [ "${{env.buildTool}}" == "maven" ]; then
                echo "Running Maven Build"
                triggered_workflow="maven_build"
-            elif [ "$BUILD_TOOL" == "ant" ]; then
+            elif [ "${{env.buildTool}}" == "ant" ]; then
                  echo "Running Ant Build"
                  triggered_workflow="ant_build"
             else
-                echo "Unknown Build Tool: $BUILD_TOOL"
+                echo "Unknown Build Tool: ${{env.buildTool}}"
                # Add handling for other build tools or unknown build tool
             fi
           else

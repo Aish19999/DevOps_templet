@@ -13,6 +13,10 @@ jobs:
   second_job:
     runs-on: ubuntu-latest
 
+    env:  # Define environment variables specific to this job
+      pipelineType: ${{ steps.read_config.outputs.pipelineType }}
+      buildTool: ${{ steps.read_config.outputs.buildTool }}
+      
     outputs:
       pipelineType: ${{steps.read_config.outputs.pipelineType}}
       buildTool:  ${{steps.read_config.outputs.buildTool}}

@@ -41,36 +41,43 @@ jobs:
           echo "BuildTool: $buildTool"
           echo "pipelineType=$pipelineType" >> $GITHUB_OUTPUT
           echo "buildTool=$buildTool" >> $GITHUB_OUTPUT
+          export PIPELINE_TYPE="$pipelineType"
+          export BUILD_TOOL="$buildTool"
+
  #         echo "pipelineType=$pipelineType" >> $GITHUB_ENV
  #         echo "buildTool=$buildTool" >> $GITHUB_ENV
+          
       - name: Conditional Step
         run: |
-          if [ "${{ needs.second_job.outputs.pipelineType }}" == "java" ]; then
-            if [ "${{ needs.second_job.outputs.buildTool }}" == "maven" ]; then
-              echo "Running Maven Build"
-              triggered_workflow="maven_build"
-            elif [ "${{ needs.second_job.outputs.buildTool }}" == "ant" ]; then
-              echo "Running Ant Build"
-              triggered_workflow="ant_build"
+          if [ "$PIPELINE_TYPE" == "java" ]; then
+            if [ "$BUILD_TOOL" == "maven" ]; then
+               echo "Running Maven Build"
+               triggered_workflow="maven_build"
+            elif [ "$BUILD_TOOL" == "ant" ]; then
+                 echo "Running Ant Build"
+                 triggered_workflow="ant_build"
             else
-              echo "Unknown Build Tool: ${{ needs.second_job.outputs.buildTool }}"
-              # Add handling for other build tools or unknown build tool
+                echo "Unknown Build Tool: $BUILD_TOOL"
+               # Add handling for other build tools or unknown build tool
             fi
           else
             echo "Not a Java Pipeline"
             # Add handling for non-Java pipelines
           fi
-          
-          # Trigger the selected workflow using the `workflow_run` event
-          
+    
+             # Trigger the selected workflow using the `workflow_run` event
+    
           if [ -n "$triggered_workflow" ]; then
-          echo "Triggering workflow: mavenBuild.yml"
-          workflow_run_id=$(gh workflow run mavenBuild.yml \
-          --ref "${{ github.ref }}" \
-          --workflow-id 6232093639 \
-          --json id --jq '.id')
-          echo "Triggered workflow with ID: $workflow_run_id"
+             echo "Triggering workflow: mavenBuild.yml"
+             workflow_run_id=$(gh workflow run mavenBuild.yml \
+             --ref "${{ github.ref }}" \
+             --workflow-id 6232093639 \
+             --json id --jq '.id')
+             echo "Triggered workflow with ID: $workflow_run_id"
           fi
+
+          
+
 
 
 #  CallMavenbuild:

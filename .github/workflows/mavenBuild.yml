@@ -1,10 +1,10 @@
 name: Java maven build
 
 on:
-  push:
-    branches: [main]
-  pull_request:
-    branches: [main]
+  workflow_call:
+  workflow_run:
+    workflows: ["Second Workflow"]
+ 
 
 jobs:
   build_test:

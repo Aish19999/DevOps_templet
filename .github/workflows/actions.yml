@@ -2,13 +2,7 @@ name: Second Workflow
 
 on:
   workflow_call:
-    inputs:
-      pipelineType:
-        required: true
-        type: string
-      buildTool:
-         required: true
-         type: string
+    
   workflow_run:
     workflows: ["Main Workflow"]
     types:
@@ -19,7 +13,25 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Deserialize Inputs
+      - name: Checkout code
+        uses: actions/checkout@v2
+        
+      - name: Install jq and yq
         run: |
-          echo "Received pipelineType: ${{inputs.pipelineType}}"
-          echo "Received buildTool: ${{inputs.buildTool}}"
+          sudo apt-get update
+          sudo apt-get install -y jq
+          sudo curl -sL https://github.com/mikefarah/yq/releases/download/v4.13.2/yq_linux_amd64 -o /usr/bin/yq
+          sudo chmod +x /usr/bin/yq
+
+      - name: Read pipelineconfig
+        id: read_config
+        run: |
+          pipeline_config_path="${{ github.workspace }}/pipelineconfig.yml"
+
+          # Use a tool like yq to parse the YAML file (install yq if needed)
+          pipelineType=$(yq eval '.pipelineType' "${pipeline_config_path}")
+          buildTool=$(yq eval '.buildTool' "${pipeline_config_path}")
+          echo "PipelineType: $pipelineType"
+          echo "BuildTool: $buildTool"
+          echo "pipelineType=$pipelineType" >> $GITHUB_OUTPUT
+          echo "buildTool=$buildTool" >> $GITHUB_OUTPUT

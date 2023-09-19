@@ -63,7 +63,7 @@ jobs:
 
     steps:
       - name: Running Java ANT build
-        uses: ./.github/workflows/javaAntBuild.yml
+        uses: Aish19999/DevOps_templet/.github/workflows/javaAntBuild.yml@main
         # Add configuration for Java ANT build here
 
   Build_and_test_java_maven:
@@ -73,7 +73,7 @@ jobs:
 
     steps:
       - name: Running Java Maven build
-        uses: ./.github/workflows/mavenBuild.yml
+        uses: Aish19999/DevOps_templet/.github/workflows/mavenBuild.yml@main
         # Add configuration for Java Maven build here
 
   Build_and_test_java_gradle:

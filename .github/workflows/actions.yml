@@ -45,10 +45,9 @@ jobs:
           echo "BuildTool: $buildTool"
           echo "pipelineType=$pipelineType" >> $GITHUB_OUTPUT
           echo "buildTool=$buildTool" >> $GITHUB_OUTPUT
+          echo "pipelineType=$pipelineType" >> $GITHUB_ENV
+          echo "buildTool=$buildTool" >> $GITHUB_ENV
           
-
- #         echo "pipelineType=$pipelineType" >> $GITHUB_ENV
- #         echo "buildTool=$buildTool" >> $GITHUB_ENV
       - name: Debug Pipeline Type and Build Tool
         run: |
           echo "Pipeline Type: ${{env.pipelineType}}"

@@ -23,15 +23,15 @@ jobs:
           sudo curl -sL https://github.com/mikefarah/yq/releases/download/v4.13.2/yq_linux_amd64 -o /usr/bin/yq
           sudo chmod +x /usr/bin/yq
 
-      # - name: Read pipelineconfig
-      #   id: read_config
-      #   run: |
-      #     pipeline_config_path="${{ github.workspace }}/pipelineconfig.yml"
+      - name: Read pipelineconfig
+        id: read_config
+        run: |
+          pipeline_config_path="${{ github.workspace }}/pipelineconfig.yml"
 
-      #     # Use a tool like yq to parse the YAML file (install yq if needed)
-      #     pipelineType=$(yq eval '.pipelineType' "${pipeline_config_path}")
-      #     buildTool=$(yq eval '.buildTool' "${pipeline_config_path}")
-      #     echo "PipelineType: $pipelineType"
-      #     echo "BuildTool: $buildTool"
-      #     echo "pipelineType=$pipelineType" >> $GITHUB_OUTPUT
-      #     echo "buildTool=$buildTool" >> $GITHUB_OUTPUT
+          # Use a tool like yq to parse the YAML file (install yq if needed)
+          pipelineType=$(yq eval '.pipelineType' "${pipeline_config_path}")
+          buildTool=$(yq eval '.buildTool' "${pipeline_config_path}")
+          echo "PipelineType: $pipelineType"
+          echo "BuildTool: $buildTool"
+          echo "pipelineType=$pipelineType" >> $GITHUB_OUTPUT
+          echo "buildTool=$buildTool" >> $GITHUB_OUTPUT

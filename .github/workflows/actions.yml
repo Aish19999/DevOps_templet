@@ -12,6 +12,11 @@ jobs:
   second_job:
     runs-on: ubuntu-latest
 
+    outputs:
+      pipelineType: ${{steps.read_config.outputs.pipelineType}}
+      buildTool:  ${{steps.read_config.outputs.buildTool}}
+    
+
     steps:
       - name: Checkout code
         uses: actions/checkout@v2

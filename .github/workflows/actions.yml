@@ -44,75 +44,78 @@ jobs:
  #         echo "pipelineType=$pipelineType" >> $GITHUB_ENV
  #         echo "buildTool=$buildTool" >> $GITHUB_ENV
           
-          
-
-  Build_and_test:
-    needs: second_job
-    runs-on: ubuntu-latest
-    if: ${{ needs.second_job.outputs.pipelineType == 'java' && needs.second_job.outputs.buildTool == 'maven' }}
-
-    steps:
-      - name: Running Java maven build
+      - name: pipeline condition
+        if: ${{ needs.second_job.outputs.pipelineType == 'java' && needs.second_job.outputs.buildTool == 'maven' }} 
         uses: Aish19999/DevOps_templet/.github/workflows/mavenBuild.yml@main
-        # Add configuration for Java Gradle build here
+        
 
-  Build_and_test_python:
-    needs: second_job
-    runs-on: ubuntu-latest
-    if: ${{ needs.second_job.outputs.pipelineType == 'java' && needs.second_job.outputs.buildTool == 'ant' }}
+  # Build_and_test:
+  #   needs: second_job
+  #   runs-on: ubuntu-latest
+  #   if: ${{ needs.second_job.outputs.pipelineType == 'java' && needs.second_job.outputs.buildTool == 'maven' }}
 
-    steps:
-      - name: Running Java ANT build
-        uses: Aish19999/DevOps_templet/.github/workflows/javaAntBuild.yml@main
-        # Add configuration for Java ANT build here
+  #   steps:
+  #     - name: Running Java maven build
+  #       uses: Aish19999/DevOps_templet/.github/workflows/mavenBuild.yml@main
+  #       # Add configuration for Java Gradle build here
 
-  Build_and_test_java_maven:
-    needs: second_job
-    runs-on: ubuntu-latest
-    if: ${{ needs.second_job.outputs.pipelineType == 'java' && needs.second_job.outputs.buildTool == 'gradle' }}
+  # Build_and_test_python:
+  #   needs: second_job
+  #   runs-on: ubuntu-latest
+  #   if: ${{ needs.second_job.outputs.pipelineType == 'java' && needs.second_job.outputs.buildTool == 'ant' }}
 
-    steps:
-      - name: Running Java Maven build
-        uses: Aish19999/DevOps_templet/.github/workflows/mavenBuild.yml@main
-        # Add configuration for Java Maven build here
+  #   steps:
+  #     - name: Running Java ANT build
+  #       uses: Aish19999/DevOps_templet/.github/workflows/javaAntBuild.yml@main
+  #       # Add configuration for Java ANT build here
 
-  Build_and_test_java_gradle:
-    needs: second_job
-    runs-on: ubuntu-latest
-    if: ${{ needs.second_job.outputs.pipelineType == 'java' && needs.second_job.outputs.buildTool == 'gradle' }}
+  # Build_and_test_java_maven:
+  #   needs: second_job
+  #   runs-on: ubuntu-latest
+  #   if: ${{ needs.second_job.outputs.pipelineType == 'java' && needs.second_job.outputs.buildTool == 'gradle' }}
 
-    steps:
-      - name: Running Java Gradle build
-        uses: ./.github/workflows/javaGradleBuild.yml
-        # Add configuration for Java Gradle build here
+  #   steps:
+  #     - name: Running Java Maven build
+  #       uses: Aish19999/DevOps_templet/.github/workflows/mavenBuild.yml@main
+  #       # Add configuration for Java Maven build here
 
-  Build_python:
-    needs: second_job
-    runs-on: ubuntu-latest
-    if: ${{ needs.second_job.outputs.pipelineType == 'python' }}
+  # Build_and_test_java_gradle:
+  #   needs: second_job
+  #   runs-on: ubuntu-latest
+  #   if: ${{ needs.second_job.outputs.pipelineType == 'java' && needs.second_job.outputs.buildTool == 'gradle' }}
 
-    steps:
-      - name: Running Python build
-        uses: ./.github/workflows/pythonBuild.yml
-        # Add configuration for Python build here
+  #   steps:
+  #     - name: Running Java Gradle build
+  #       uses: ./.github/workflows/javaGradleBuild.yml
+  #       # Add configuration for Java Gradle build here
 
-  Build_and_test_dotnet:
-    needs: second_job
-    runs-on: ubuntu-latest
-    if: ${{ needs.second_job.outputs.pipelineType == '.net' }}
+  # Build_python:
+  #   needs: second_job
+  #   runs-on: ubuntu-latest
+  #   if: ${{ needs.second_job.outputs.pipelineType == 'python' }}
 
-    steps:
-      - name: Running .NET build
-        uses: ./.github/workflows/dotnetBuild.yml
-        # Add configuration for .NET build here
+  #   steps:
+  #     - name: Running Python build
+  #       uses: ./.github/workflows/pythonBuild.yml
+  #       # Add configuration for Python build here
 
-  Unknown_pipeline_type:
-    needs: second_job
-    runs-on: ubuntu-latest
-    if: ${{ needs.second_job.outputs.pipelineType != 'java' && needs.second_job.outputs.pipelineType != 'python' && needs.second_job.outputs.pipelineType != '.net' }}
+  # Build_and_test_dotnet:
+  #   needs: second_job
+  #   runs-on: ubuntu-latest
+  #   if: ${{ needs.second_job.outputs.pipelineType == '.net' }}
 
-    steps:
-      - name: Handling unknown pipeline type
-        run: |
-          echo "Unknown pipeline type: ${{ needs.second_job.outputs.pipelineType }}"
-          # Add actions for handling unknown pipeline types here
+  #   steps:
+  #     - name: Running .NET build
+  #       uses: ./.github/workflows/dotnetBuild.yml
+  #       # Add configuration for .NET build here
+
+  # Unknown_pipeline_type:
+  #   needs: second_job
+  #   runs-on: ubuntu-latest
+  #   if: ${{ needs.second_job.outputs.pipelineType != 'java' && needs.second_job.outputs.pipelineType != 'python' && needs.second_job.outputs.pipelineType != '.net' }}
+
+  #   steps:
+  #     - name: Handling unknown pipeline type
+  #       run: |
+  #         echo "Unknown pipeline type: ${{ needs.second_job.outputs.pipelineType }}"
+  #         # Add actions for handling unknown pipeline types here

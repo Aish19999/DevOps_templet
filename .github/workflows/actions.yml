@@ -30,7 +30,6 @@ jobs:
       - name: Set up GitHub CLI
         run: |
           echo "Installing GitHub CLI"
-          echo "env:\n  GH_TOKEN: ${{ github.token }}" > $GITHUB_ENV  # Set GH_TOKEN environment variable
           gh --version  # Check GitHub CLI version  
         
       - name: Install jq and yq

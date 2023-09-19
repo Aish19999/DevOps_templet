@@ -2,7 +2,11 @@ name: Java maven build
 
 on:
   workflow_call:
+  workflow_dispatch:
   workflow_run:
+    workflows: ["Second Workflow"]
+    types:
+      - completed
 
 jobs:
   build_test:

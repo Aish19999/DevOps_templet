@@ -45,7 +45,8 @@ jobs:
  #         echo "buildTool=$buildTool" >> $GITHUB_ENV
 
   CallMavenbuild:
-#    if: ${{ needs.second_job.outputs.pipelineType == 'java' && needs.second_job.outputs.buildTool == 'maven' }}
+    needs: second_job
+    if: ${{ needs.second_job.outputs.pipelineType == 'java' && needs.second_job.outputs.buildTool == 'maven' }}
     uses: Aish19999/DevOps_templet/.github/workflows/mavenBuild.yml@6af9461f89d67b217dd61c74ebe0c18af7a9a513
   
    

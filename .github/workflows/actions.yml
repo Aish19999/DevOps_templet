@@ -58,40 +58,11 @@ jobs:
           echo "Pipeline Type: ${{env.pipelineType}}"
           echo "Build Tool: ${{env.buildTool}}"
           
-      - name: Conditional Step
-        run: |
-          if [ "${{env.pipelineType}}" == "java" ]; then
-            if [ "${{env.buildTool}}" == "maven" ]; then
-               echo "Running Maven Build"
-               triggered_workflow="maven_build"
-            elif [ "${{env.buildTool}}" == "ant" ]; then
-                 echo "Running Ant Build"
-                 triggered_workflow="ant_build"
-            else
-                echo "Unknown Build Tool: ${{env.buildTool}}"
-               # Add handling for other build tools or unknown build tool
-            fi
-          else
-            echo "Not a Java Pipeline"
-            # Add handling for non-Java pipelines
-          fi
-    
-             # Trigger the selected workflow using the `workflow_run` event
-    
-          if [ -n "$triggered_workflow" ]; then
-             echo "Triggering workflow: mavenBuild.yml"
-             gh workflow run mavenBuild.yml --ref "${{ github.ref }}"
-             echo "Triggered workflow with ID: $workflow_run_id"
-          fi
-
           
-
-
-
-#  CallMavenbuild:
-#    needs: second_job
-#    if: ${{ needs.second_job.outputs.pipelineType == 'java' && needs.second_job.outputs.buildTool == 'maven' }}
-#    uses: Aish19999/DevOps_templet/.github/workflows/mavenBuild.yml@6af9461f89d67b217dd61c74ebe0c18af7a9a513
+  CallMavenbuild:
+    needs: second_job
+    if: ${{ needs.second_job.outputs.pipelineType == 'java' && needs.second_job.outputs.buildTool == 'maven' }}
+    uses: Aish19999/DevOps_templet/.github/workflows/mavenBuild.yml@6af9461f89d67b217dd61c74ebe0c18af7a9a513
   
    
  

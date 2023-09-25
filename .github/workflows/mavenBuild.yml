@@ -30,6 +30,6 @@ jobs:
 
     - name: Security scan
       run: |
-        echo"Runnning security scan"
+          echo "Runnning security scan"
      
      

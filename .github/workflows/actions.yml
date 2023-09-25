@@ -63,6 +63,33 @@ jobs:
     needs: second_job
     if: ${{ needs.second_job.outputs.pipelineType == 'java' && needs.second_job.outputs.buildTool == 'maven' }}
     uses: Aish19999/DevOps_templet/.github/workflows/mavenBuild.yml@6af9461f89d67b217dd61c74ebe0c18af7a9a513
+
+  CallAntbuild:
+    needs: second_job
+    if: ${{ needs.second_job.outputs.pipelineType == 'java' && needs.second_job.outputs.buildTool == 'ant' }}
+    uses: Aish19999/DevOps_templet/.github/workflows/mavenBuild.yml@6af9461f89d67b217dd61c74ebe0c18af7a9a513
+
+  CallGradlebuild:
+    needs: second_job
+    if: ${{ needs.second_job.outputs.pipelineType == 'java' && needs.second_job.outputs.buildTool == 'Gradle' }}
+    uses: Aish19999/DevOps_templet/.github/workflows/mavenBuild.yml@6af9461f89d67b217dd61c74ebe0c18af7a9a513
+   
+  CallPythonbuild:
+    needs: second_job
+    if: ${{ needs.second_job.outputs.pipelineType == 'python'}}
+    uses: Aish19999/DevOps_templet/.github/workflows/mavenBuild.yml@6af9461f89d67b217dd61c74ebe0c18af7a9a513
+
+  CallAzureAppServicebuild:
+    needs: second_job
+    if: ${{ needs.second_job.outputs.pipelineType == 'azureAppService'}}
+    uses: Aish19999/DevOps_templet/.github/workflows/mavenBuild.yml@6af9461f89d67b217dd61c74ebe0c18af7a9a513   
+
+  CallAzurefunctionsebuild:
+    needs: second_job
+    if: ${{ needs.second_job.outputs.pipelineType == 'Azurefunctions'}}
+    uses: Aish19999/DevOps_templet/.github/workflows/mavenBuild.yml@6af9461f89d67b217dd61c74ebe0c18af7a9a513   
+        
+    
   
    
  

@@ -62,7 +62,7 @@ jobs:
   CallMavenbuild:
     needs: second_job
     if: ${{ needs.second_job.outputs.pipelineType == 'java' && needs.second_job.outputs.buildTool == 'maven' }}
-    uses: Aish19999/DevOps_templet/.github/workflows/mavenBuild.yml@68517903e4548cbc3a50b7e42ce2d5755e04f7af
+    uses: Aish19999/DevOps_templet/.github/workflows/mavenBuild.yml@82be3b8a017be58837f8f1ecf300ab05ca327411
 
   CallAntbuild:
     needs: second_job

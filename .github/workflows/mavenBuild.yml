@@ -23,3 +23,13 @@ jobs:
         cache: maven
     - name: Build with maven
       run: mvn -B compile --file pom.xml
+
+    - name: Sonar Analysis  
+      run: |
+          echo "analysing the code"
+
+    - name: Security scan
+      run: |
+        echo"Runnning security scan"
+     
+     

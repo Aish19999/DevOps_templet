@@ -14,7 +14,7 @@ jobs:
     runs-on: ubuntu-latest
 
     env:  # Define environment variables specific to this job
-      concatsValue: ${{github.event.inputs.pipelineType}}${{ github.event.inputs.buildTool}}
+      concatsValue: "javamaven"
       pipelineType: ${{ github.event.inputs.pipelineType }}
       buildTool: ${{ github.event.inputs.buildTool  }}
       GH_TOKEN: ${{ secrets.ACTIONS_KEY }}

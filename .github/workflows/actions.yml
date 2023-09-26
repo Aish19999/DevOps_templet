@@ -66,10 +66,10 @@ jobs:
           echo "Concat value: ${{env.concatValue}}"
           
           
-  CallMavenbuild:
-    needs: CheckThePipelineType
-    if: ${{ needs.CheckThePipelineType.outputs.pipelineType == 'java' && needs.CheckThePipelineType.outputs.buildTool == 'maven' }}
-    uses: Aish19999/DevOps_templet/.github/workflows/${{needs.CheckThePipelineType.outputs.concatValue}}.yml@13412824c01a3637396c53f49b2fae1ace4ee3d9
+#  CallMavenbuild:
+#    needs: CheckThePipelineType
+#   if: ${{ needs.CheckThePipelineType.outputs.pipelineType == 'java' && needs.CheckThePipelineType.outputs.buildTool == 'maven' }}
+#    uses: Aish19999/DevOps_templet/.github/workflows/${{needs.CheckThePipelineType.outputs.concatValue}}.yml@13412824c01a3637396c53f49b2fae1ace4ee3d9
 
   # CallAntbuild:
   #   needs: CheckThePipelineType

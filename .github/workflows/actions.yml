@@ -76,11 +76,12 @@ jobs:
           # You can access the output variables from the previous job like this:
           echo "Pipeline Type: ${{ needs.CheckThePipelineType.outputs.pipelineType }}"
           echo "Build Tool: ${{ needs.CheckThePipelineType.outputs.buildTool }}"
-          echo "Concat Value: ${{ needs.CheckThePipelineType.outputs.concatsValue }}"        
-#  CallMavenbuild:
-#    needs: CheckThePipelineType
-#   if: ${{ needs.CheckThePipelineType.outputs.pipelineType == 'java' && needs.CheckThePipelineType.outputs.buildTool == 'maven' }}
-#    uses: Aish19999/DevOps_templet/.github/workflows/${{needs.CheckThePipelineType.outputs.concatValue}}.yml@13412824c01a3637396c53f49b2fae1ace4ee3d9
+          echo "Concat Value: ${{ needs.CheckThePipelineType.outputs.concatsValue }}"  
+          
+  CallMavenbuild:
+    needs: CheckThePipelineType
+    if: ${{ needs.CheckThePipelineType.outputs.pipelineType == 'java' && needs.CheckThePipelineType.outputs.buildTool == 'maven' }}
+    uses: Aish19999/DevOps_templet/.github/workflows/${{needs.CheckThePipelineType.outputs.concatsValue }}.yml@main
 
   # CallAntbuild:
   #   needs: CheckThePipelineType

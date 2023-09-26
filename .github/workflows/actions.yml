@@ -86,7 +86,7 @@ jobs:
 
   CallAzurefunctionsebuild:
     needs: CheckThePipelineType
-    if: ${{ needs.second_job.outputs.pipelineType == 'Azurefunctions'}}
+    if: ${{ needs.CheckThePipelineType.outputs.pipelineType == 'Azurefunctions'}}
     uses: Aish19999/DevOps_templet/.github/workflows/mavenBuild.yml@6af9461f89d67b217dd61c74ebe0c18af7a9a513   
         
     

@@ -14,15 +14,15 @@ jobs:
     runs-on: ubuntu-latest
 
     env:  # Define environment variables specific to this job
+      concatsValue: ${{github.event.inputs.concatsValue}}
       pipelineType: ${{ github.event.inputs.pipelineType }}
       buildTool: ${{ github.event.inputs.buildTool  }}
-      concatValue: ${{github.event.inputs.concatValue}}
       GH_TOKEN: ${{ secrets.ACTIONS_KEY }}
       
     outputs:
       pipelineType: ${{steps.read_config.outputs.pipelineType}}
       buildTool:  ${{steps.read_config.outputs.buildTool}}
-      concatValue: ${{steps.read_config.outputs.concatValue}}
+      concatsValue: ${{steps.read_config.outputs.concatsValue}}
     
 
     steps:
@@ -48,14 +48,15 @@ jobs:
           # Use a tool like yq to parse the YAML file (install yq if needed)
           pipelineType=$(yq eval '.pipelineType' "${pipeline_config_path}")
           buildTool=$(yq eval '.buildTool' "${pipeline_config_path}")
-          concatValue="${pipelineType}${buildTool}"
-          echo "concatValue: $concatValue"
+          concatsValue="${pipelineType}${buildTool}"
+          echo "concatsValue: $concatsValue"
           echo "PipelineType: $pipelineType"
           echo "BuildTool: $buildTool"
-          echo "concatValue=${concatValue}" >> GITHUB_OUTPUT
+          
+          echo "concatsValue=${concatsValue}" >> GITHUB_OUTPUT
           echo "pipelineType=$pipelineType" >> $GITHUB_OUTPUT
           echo "buildTool=$buildTool" >> $GITHUB_OUTPUT
-          echo "concatValue=${concatValue}" >> GITHUB_ENV
+          echo "concatsValue=${concatsValue}" >> GITHUB_ENV
           echo "pipelineType=$pipelineType" >> $GITHUB_ENV
           echo "buildTool=$buildTool" >> $GITHUB_ENV
           
@@ -63,7 +64,7 @@ jobs:
         run: |
           echo "Pipeline Type: ${{env.pipelineType}}"
           echo "Build Tool: ${{env.buildTool}}"
-          echo "Concat value: ${{env.concatValue}}"
+          echo "Concat value: ${{env.concatsValue}}"
           
           
 #  CallMavenbuild:

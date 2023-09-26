@@ -22,7 +22,7 @@ jobs:
     outputs:
       pipelineType: ${{steps.read_config.outputs.pipelineType}}
       buildTool:  ${{steps.read_config.outputs.buildTool}}
-      concatsValue: ${{steps.read_config.outputs.concatsValue}}
+      concatsValue: ${{steps.read_config.outputs.pipelineType}}${{steps.read_config.outputs.buildTool}}
     
 
     steps:

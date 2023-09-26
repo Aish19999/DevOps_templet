@@ -55,7 +55,7 @@ jobs:
           echo "concatValue=${concatValue}" >> GITHUB_OUTPUT
           echo "pipelineType=$pipelineType" >> $GITHUB_OUTPUT
           echo "buildTool=$buildTool" >> $GITHUB_OUTPUT
-          echo "concatValue="${{concatValue}}" " >> GITHUB_ENV
+          echo "concatValue=${{concatValue}}" >> GITHUB_ENV
           echo "pipelineType=$pipelineType" >> $GITHUB_ENV
           echo "buildTool=$buildTool" >> $GITHUB_ENV
           

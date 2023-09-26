@@ -16,11 +16,13 @@ jobs:
     env:  # Define environment variables specific to this job
       pipelineType: ${{ github.event.inputs.pipelineType }}
       buildTool: ${{ github.event.inputs.buildTool  }}
+      concatValue: ${{github.event.inputs.concatValue}}
       GH_TOKEN: ${{ secrets.ACTIONS_KEY }}
       
     outputs:
       pipelineType: ${{steps.read_config.outputs.pipelineType}}
       buildTool:  ${{steps.read_config.outputs.buildTool}}
+      concatValue: ${{steps.read_config.outputs.concatValue}}
     
 
     steps:
@@ -46,10 +48,14 @@ jobs:
           # Use a tool like yq to parse the YAML file (install yq if needed)
           pipelineType=$(yq eval '.pipelineType' "${pipeline_config_path}")
           buildTool=$(yq eval '.buildTool' "${pipeline_config_path}")
+          concatenatedValue="${pipelineType}${buildTool}"
+          echo "concatValue: $concatenatedValue"
           echo "PipelineType: $pipelineType"
           echo "BuildTool: $buildTool"
+          echo "concatValue=$concatenatedValue" >> GITHUB_OUTPUT
           echo "pipelineType=$pipelineType" >> $GITHUB_OUTPUT
           echo "buildTool=$buildTool" >> $GITHUB_OUTPUT
+          echo "concatValue=$concatenatedValue" >> GITHUB_ENV
           echo "pipelineType=$pipelineType" >> $GITHUB_ENV
           echo "buildTool=$buildTool" >> $GITHUB_ENV
           
@@ -57,12 +63,13 @@ jobs:
         run: |
           echo "Pipeline Type: ${{env.pipelineType}}"
           echo "Build Tool: ${{env.buildTool}}"
+          echo "Concat value: ${{env.concatValue}}"
           
           
   CallMavenbuild:
     needs: CheckThePipelineType
     if: ${{ needs.CheckThePipelineType.outputs.pipelineType == 'java' && needs.CheckThePipelineType.outputs.buildTool == 'maven' }}
-    uses: Aish19999/DevOps_templet/.github/workflows/${{needs.CheckThePipelineType.outputs.pipelineType}}${{needs.CheckThePipelineType.outputs.buildTool}}.yml@13412824c01a3637396c53f49b2fae1ace4ee3d9
+    uses: Aish19999/DevOps_templet/.github/workflows/${{needs.CheckThePipelineType.outputs.concatValue}}.yml@13412824c01a3637396c53f49b2fae1ace4ee3d9
 
   # CallAntbuild:
   #   needs: CheckThePipelineType

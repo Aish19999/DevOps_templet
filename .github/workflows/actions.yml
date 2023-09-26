@@ -80,8 +80,7 @@ jobs:
           
   CallMavenbuild:
     needs: CheckThePipelineType
-    if: ${{ needs.CheckThePipelineType.outputs.pipelineType == 'java' && needs.CheckThePipelineType.outputs.buildTool == 'maven' }}
-    uses: Aish19999/DevOps_templet/.github/workflows/javamaven.yml@main
+    uses: Aish19999/DevOps_templet/.github/workflows/${{needs.CheckThePipelineType.outputs.concatsValue}}.yml@main
     
 #    uses: Aish19999/DevOps_templet/.github/workflows/${{needs.CheckThePipelineType.outputs.concatsValue }}.yml@main
          

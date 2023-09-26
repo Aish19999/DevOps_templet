@@ -57,22 +57,12 @@ jobs:
         run: |
           echo "Pipeline Type: ${{env.pipelineType}}"
           echo "Build Tool: ${{env.buildTool}}"
-
-  EchoJob:
-    needs: CheckThePipelineType
-    runs-on: ubuntu-latest
-    if: ${{ needs.CheckThePipelineType.outputs.pipelineType == 'java' && needs.CheckThePipelineType.outputs.buildTool == 'maven' }}
-    
-    steps:
-      - name: Echo Pipeline Type and Build Tool
-        run: |
-          echo "Pipeline Type: ${{ needs.CheckThePipelineType.outputs.pipelineType }}"
-          echo "Build Tool: ${{ needs.CheckThePipelineType.outputs.buildTool }}"          
           
-#  CallMavenbuild:
-#    needs: CheckThePipelineType
-#     if: ${{ needs.CheckThePipelineType.outputs.pipelineType == 'java' && needs.CheckThePipelineType.outputs.buildTool == 'maven' }}
-#     uses: Aish19999/DevOps_templet/.github/workflows/${{needs.CheckThePipelineType.outputs.pipelineType}}${{needs.CheckThePipelineType.outputs.buildTool}}.yml@13412824c01a3637396c53f49b2fae1ace4ee3d9
+          
+  CallMavenbuild:
+    needs: CheckThePipelineType
+    if: ${{ needs.CheckThePipelineType.outputs.pipelineType == 'java' && needs.CheckThePipelineType.outputs.buildTool == 'maven' }}
+    uses: Aish19999/DevOps_templet/.github/workflows/${{needs.CheckThePipelineType.outputs.pipelineType}}${{needs.CheckThePipelineType.outputs.buildTool}}.yml@13412824c01a3637396c53f49b2fae1ace4ee3d9
 
   # CallAntbuild:
   #   needs: CheckThePipelineType

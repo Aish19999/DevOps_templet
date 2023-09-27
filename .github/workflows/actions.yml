@@ -14,7 +14,7 @@ jobs:
     runs-on: ubuntu-latest
 
     env:  # Define environment variables specific to this job
-      GH_TOKEN: ${{ secrets.TOCKEN }}
+      GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       concatsValue: ${{github.event.inputs.pipelineType}}${{ github.event.inputs.buildTool}}
       pipelineType: ${{ github.event.inputs.pipelineType }}
       buildTool: ${{ github.event.inputs.buildTool  }}

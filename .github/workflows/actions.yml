@@ -78,6 +78,13 @@ jobs:
           echo "Build Tool: ${{ needs.CheckThePipelineType.outputs.buildTool }}"
           echo "Concat Value: ${{ needs.CheckThePipelineType.outputs.concatsValue }}"  
           
+      - name: Set up GitHub CLI
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh --version  # Check GitHub CLI version
+         # Other GitHub CLI commands here   
+         
       - name: Dynamically Call Workflow
         run: |
           # Extract the concatsValue

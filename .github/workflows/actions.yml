@@ -94,7 +94,7 @@ jobs:
           
           # Trigger the workflow_run event for the dynamically constructed workflow name
           echo "Triggering workflow: $workflow_name"
-          gh workflow run Aish19999/DevOps_templet/.github/workflows/javamaven.yml@main
+          gh workflow run Aish19999/DevOps_templet/.github/workflows/javamaven.yml@13412824c01a3637396c53f49b2fae1ace4ee3d9
 
 
     

@@ -79,13 +79,8 @@ jobs:
           echo "Build Tool: ${{ needs.CheckThePipelineType.outputs.buildTool }}"
           echo "Concat Value: ${{ needs.CheckThePipelineType.outputs.concatsValue }}"  
           
-      - name: Set up GitHub CLI
-        env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: |
-          echo "GH_TOKEN: $GH_TOKEN"  # Verify the value of GH_TOKEN
-          gh --version  # Check GitHub CLI version
-         # Other GitHub CLI commands here   
+      - name: Checkout code
+        uses: actions/checkout@v2   
          
       - name: Dynamically Call Workflow
         env:

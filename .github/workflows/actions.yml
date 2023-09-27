@@ -83,6 +83,7 @@ jobs:
         env:
           GH_TOKEN: ${{ secrets.ACTIONS_KEY }}
         run: |
+          echo "GH_TOKEN: $GH_TOKEN"  # Verify the value of GH_TOKEN
           gh --version  # Check GitHub CLI version
          # Other GitHub CLI commands here   
          

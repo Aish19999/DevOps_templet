@@ -14,7 +14,7 @@ jobs:
     runs-on: ubuntu-latest
 
     env:  # Define environment variables specific to this job
-      GH_TOKEN: ${{ secrets.ACTIONS_KEY }}
+      GH_TOKEN: ${{ secrets.TOCKEN }}
       concatsValue: ${{github.event.inputs.pipelineType}}${{ github.event.inputs.buildTool}}
       pipelineType: ${{ github.event.inputs.pipelineType }}
       buildTool: ${{ github.event.inputs.buildTool  }}
@@ -81,7 +81,7 @@ jobs:
           
       - name: Set up GitHub CLI
         env:
-          GH_TOKEN: ${{ secrets.ACTIONS_KEY }}
+          GH_TOKEN: ${{ secrets.TOCKEN }}
         run: |
           echo "GH_TOKEN: $GH_TOKEN"  # Verify the value of GH_TOKEN
           gh --version  # Check GitHub CLI version

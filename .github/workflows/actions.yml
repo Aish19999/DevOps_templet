@@ -78,9 +78,21 @@ jobs:
           echo "Build Tool: ${{ needs.CheckThePipelineType.outputs.buildTool }}"
           echo "Concat Value: ${{ needs.CheckThePipelineType.outputs.concatsValue }}"  
           
-  CallMavenbuild:
-    needs: CheckThePipelineType
-    uses: Aish19999/DevOps_templet/.github/workflows/${{needs.CheckThePipelineType.outputs.concatsValue}}.yml@main
+      - name: Dynamically Call Workflow
+        run: |
+          # Extract the concatsValue
+          concatsValue="${{ needs.CheckThePipelineType.outputs.concatsValue }}"
+
+          # Construct the workflow name dynamically
+          workflow_name=" Aish19999/DevOps_templet/.github/workflows/${concatsValue}.yml@main"
+          
+          # Trigger the workflow_run event for the dynamically constructed workflow name
+          echo "Triggering workflow: $workflow_name"
+          gh workflow run $workflow_name
+
+
+    
+  
     
 #    uses: Aish19999/DevOps_templet/.github/workflows/${{needs.CheckThePipelineType.outputs.concatsValue }}.yml@main
          

@@ -80,7 +80,7 @@ jobs:
           
       - name: Set up GitHub CLI
         env:
-          GH_TOKEN: ${{ github.token }}
+          GH_TOKEN: ${{ secrets.ACTIONS_KEY }}
         run: |
           gh --version  # Check GitHub CLI version
          # Other GitHub CLI commands here   

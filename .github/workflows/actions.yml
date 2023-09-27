@@ -81,7 +81,7 @@ jobs:
           
       - name: Set up GitHub CLI
         env:
-          GH_TOKEN: ${{ secrets.TOCKEN }}
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           echo "GH_TOKEN: $GH_TOKEN"  # Verify the value of GH_TOKEN
           gh --version  # Check GitHub CLI version

@@ -88,6 +88,8 @@ jobs:
          # Other GitHub CLI commands here   
          
       - name: Dynamically Call Workflow
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           # Extract the concatsValue
           concatsValue="${{ needs.CheckThePipelineType.outputs.concatsValue }}"

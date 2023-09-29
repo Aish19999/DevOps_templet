@@ -1,17 +1,26 @@
-name: Workflow Dispatcher
+name: Main Workflow
 
 on:
-  workflow_dispatch:
-    inputs:
-      buildTool:
-        description: 'Build Tool'
-        required: true
+  push:
+    branches:
+      - main
 
 jobs:
-  dispatch:
+  build:
     runs-on: ubuntu-latest
+
     steps:
-      - name: Trigger Build Workflow
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      # Add your other build steps here
+
+  trigger_dispatch:
+    runs-on: ubuntu-latest
+    needs: build
+    steps:
+      - name: Trigger Workflow Dispatcher
         uses: Aish19999/DevOps_templet/.github/scripts/trigger-workflow.sh@main
         with:
-          buildTool: ${{ github.event.inputs.buildTool }}
+          buildTool: maven
+

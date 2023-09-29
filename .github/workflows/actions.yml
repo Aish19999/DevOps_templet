@@ -111,7 +111,7 @@ jobs:
   Build:
      needs: CheckThePipelineType
 #     if: ${{ needs.CheckThePipelineType.outputs.pipelineType == 'java' && needs.CheckThePipelineType.outputs.buildTool == 'maven' }}
-     uses: Aish19999/DevOps_templet/.github/workflows/${concatsValue}.yml@main       
+     uses: Aish19999/DevOps_templet/.github/workflows/${env.buildTool}".yml@main       
 
 #  CallAntbuild:
 #     needs: CheckThePipelineType

@@ -73,7 +73,8 @@ jobs:
   SecondJob:
     runs-on: ubuntu-latest
     needs: CheckThePipelineType  # This specifies that this job depends on CheckThePipelineType
-
+    permissions: write-all
+    
     steps:
       - name: Debug Outputs
         run: |

@@ -9,6 +9,8 @@ on:
     types:
       - completed
 
+permissions: write-all      
+
 jobs:
   CheckThePipelineType:
     runs-on: ubuntu-latest

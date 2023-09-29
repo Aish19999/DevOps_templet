@@ -90,7 +90,7 @@ jobs:
           concatsValue="${{ needs.CheckThePipelineType.outputs.concatsValue }}"
 
           # Construct the workflow name dynamically
-          workflow_name="Aish19999/DevOps_templet/.github/workflows/${concatsValue}.yml@main"
+          workflow_name="${concatsValue}.yml@main"
           
           # Trigger the workflow_run event for the dynamically constructed workflow name
           echo "Triggering workflow: $workflow_name"

@@ -100,7 +100,7 @@ jobs:
           
           # Trigger the workflow_run event for the dynamically constructed workflow name
           echo "Triggering workflow: $workflow_name"
-          gh workflow run .github/workflows/javamaven.yml --repo Aish19999/DevOps_templet --ref main
+#          gh workflow run .github/workflows/javamaven.yml --repo Aish19999/DevOps_templet --ref main
           
 
 
@@ -108,22 +108,25 @@ jobs:
   
     
 #    uses: Aish19999/DevOps_templet/.github/workflows/${{needs.CheckThePipelineType.outputs.concatsValue }}.yml@main
-         
+  Callmavenbuild:
+     needs: CheckThePipelineType
+     if: ${{ needs.CheckThePipelineType.outputs.pipelineType == 'java' && needs.CheckThePipelineType.outputs.buildTool == 'maven' }}
+     uses: Aish19999/DevOps_templet/.github/workflows/mavenBuild.yml@6af9461f89d67b217dd61c74ebe0c18af7a9a513         
 
-  # CallAntbuild:
-  #   needs: CheckThePipelineType
-  #   if: ${{ needs.CheckThePipelineType.outputs.pipelineType == 'java' && needs.CheckThePipelineType.outputs.buildTool == 'ant' }}
-  #   uses: Aish19999/DevOps_templet/.github/workflows/mavenBuild.yml@6af9461f89d67b217dd61c74ebe0c18af7a9a513
+  CallAntbuild:
+     needs: CheckThePipelineType
+     if: ${{ needs.CheckThePipelineType.outputs.pipelineType == 'java' && needs.CheckThePipelineType.outputs.buildTool == 'ant' }}
+     uses: Aish19999/DevOps_templet/.github/workflows/mavenBuild.yml@6af9461f89d67b217dd61c74ebe0c18af7a9a513
 
-  # CallGradlebuild:
-  #   needs: CheckThePipelineType
-  #   if: ${{ needs.CheckThePipelineType.outputs.pipelineType == 'java' && needs.CheckThePipelineType.outputs.buildTool == 'Gradle' }}
-  #   uses: Aish19999/DevOps_templet/.github/workflows/mavenBuild.yml@6af9461f89d67b217dd61c74ebe0c18af7a9a513
+  CallGradlebuild:
+     needs: CheckThePipelineType
+     if: ${{ needs.CheckThePipelineType.outputs.pipelineType == 'java' && needs.CheckThePipelineType.outputs.buildTool == 'Gradle' }}
+     uses: Aish19999/DevOps_templet/.github/workflows/mavenBuild.yml@6af9461f89d67b217dd61c74ebe0c18af7a9a513
    
-  # CallPythonbuild:
-  #   needs: CheckThePipelineType
-  #   if: ${{ needs.CheckThePipelineType.outputs.pipelineType == 'python'}}
-  #   uses: Aish19999/DevOps_templet/.github/workflows/mavenBuild.yml@6af9461f89d67b217dd61c74ebe0c18af7a9a513
+  CallPythonbuild:
+     needs: CheckThePipelineType
+     if: ${{ needs.CheckThePipelineType.outputs.pipelineType == 'python'}}
+     uses: Aish19999/DevOps_templet/.github/workflows/mavenBuild.yml@6af9461f89d67b217dd61c74ebe0c18af7a9a513
 
   # CallAzureAppServicebuild:
   #   needs: CheckThePipelineType

@@ -88,20 +88,21 @@ jobs:
          
       - name: Dynamically Call Workflow
         env:
-#          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           WORKFLOW_PAT: "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"
           ACTIONS_STEP_DEBUG: true
 
         run: |
           # Extract the concatsValue
           concatsValue="${{ needs.CheckThePipelineType.outputs.concatsValue }}"
+          PAT_TOKEN="${{ secrets.WORKFLOW_PAT }}"
 
           # Construct the workflow name dynamically
           workflow_name=".github/workflows/${concatsValue}.yml@main"
-          
+          REF="main"
           # Trigger the workflow_run event for the dynamically constructed workflow name
           echo "Triggering workflow: $workflow_name"
-          gh workflow run .github/workflows/javamaven.yml --repo Aish19999/DevOps_templet --ref main
+          gh workflow run "${workflow_name}" --repo Aish19999/DevOps_templet --ref main --token "${PAT_TOKEN}
         
 
 

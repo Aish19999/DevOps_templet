@@ -93,17 +93,18 @@ jobs:
           ACTIONS_STEP_DEBUG: true
 
         run: |
-          # Extract the concatsValue
-          concatsValue="${{ needs.CheckThePipelineType.outputs.concatsValue }}"
           PAT_TOKEN="${{ secrets.WORKFLOW_PAT }}"
-
-          # Construct the workflow name dynamically
-          workflow_name=".github/workflows/${concatsValue}.yml@main"
+          REPO_OWNER= "Aish19999"
+          REPO_NAME="DevOps_templet"
+          workflow_name="javamaven.yml@main"
           REF="main"
           # Trigger the workflow_run event for the dynamically constructed workflow name
           echo "Triggering workflow: $workflow_name"
-          gh workflow run "${workflow_name}" --repo Aish19999/DevOps_templet --ref main --token "${PAT_TOKEN}"
-        
+          curl -X POST \
+          -H "Accept: application/vnd.github.v3+json" \
+          -H "Authorization: token $PAT_TOKEN" \
+          "https://api.github.com/repos/$REPO_OWNER/$REPO_NAME/actions/workflows/$WORKFLOW_NAME/dispatches" \
+          -d "{\"ref\":\"$REF\"}"
 
 
     

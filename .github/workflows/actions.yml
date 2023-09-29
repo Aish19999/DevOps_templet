@@ -15,6 +15,7 @@ jobs:
 
     env:  # Define environment variables specific to this job
       GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      WORKFLOW_PAT: ${{ secrets.WORKFLOW_PAT }}
       concatsValue: ${{github.event.inputs.pipelineType}}${{ github.event.inputs.buildTool}}
       pipelineType: ${{ github.event.inputs.pipelineType }}
       buildTool: ${{ github.event.inputs.buildTool  }}
@@ -96,10 +97,7 @@ jobs:
           
           # Trigger the workflow_run event for the dynamically constructed workflow name
           echo "Triggering workflow: $workflow_name"
-          pwd
-          gh workflow list
-          gh workflow run .github/workflows/Java maven build
-#          gh workflow run .github/workflows/javamaven.yml -R Aish19999/DevOps_templet 
+          gh workflow run .github/workflows/javamaven.yml -R Aish19999/DevOps_templet 
           
 
 

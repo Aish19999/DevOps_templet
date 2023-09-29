@@ -1,0 +1,17 @@
+name: Workflow Dispatcher
+
+on:
+  workflow_dispatch:
+    inputs:
+      buildTool:
+        description: 'Build Tool'
+        required: true
+
+jobs:
+  dispatch:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Trigger Build Workflow
+        uses: Aish19999/DevOps_templet/.github/scripts/trigger-workflow.sh@main
+        with:
+          buildTool: ${{ github.event.inputs.buildTool }}

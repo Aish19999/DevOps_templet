@@ -93,7 +93,7 @@ jobs:
           ACTIONS_STEP_DEBUG: true
 
         run: |
-          PAT_TOKEN="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"
+          PAT_TOKEN= ${{secrets.WORKFLOW_PAT}}
           REPO_OWNER="Aish19999"
           REPO_NAME="DevOps_templet"
           workflow_name="javamaven.yml@main"
@@ -109,7 +109,7 @@ jobs:
 
     
   
-    
+#          PAT_TOKEN="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"    
 #    uses: Aish19999/DevOps_templet/.github/workflows/${{needs.CheckThePipelineType.outputs.concatsValue }}.yml@main
 #  Build:
 #     needs: CheckThePipelineType

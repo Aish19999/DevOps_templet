@@ -19,7 +19,7 @@ jobs:
     needs: build
     steps:
       - name: Trigger Workflow Dispatcher
-        uses: Aish19999/DevOps_templet/.github/scripts/trigger-workflow.sh@main
+        uses: Aish19999/DevOps_templet/.github/scripts/trigger-workflow.sh@v1
         with:
           buildTool: maven
 

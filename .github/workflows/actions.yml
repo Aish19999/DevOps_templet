@@ -102,7 +102,7 @@ jobs:
           REF="main"
           # Trigger the workflow_run event for the dynamically constructed workflow name
           echo "Triggering workflow: $workflow_name"
-          gh workflow run "${workflow_name}" --repo Aish19999/DevOps_templet --ref main --token "${PAT_TOKEN}
+          gh workflow run "${workflow_name}" --repo Aish19999/DevOps_templet --ref main --token "${PAT_TOKEN}"
         
 
 

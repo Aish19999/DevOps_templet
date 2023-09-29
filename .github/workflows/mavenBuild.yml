@@ -1,4 +1,4 @@
-name: Java maven build
+name: test
 
 on:
   workflow_call:

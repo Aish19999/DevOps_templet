@@ -85,6 +85,7 @@ jobs:
       - name: Dynamically Call Workflow
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          ACTIONS_STEP_DEBUG: true
         run: |
           # Extract the concatsValue
           concatsValue="${{ needs.CheckThePipelineType.outputs.concatsValue }}"
@@ -94,7 +95,7 @@ jobs:
           
           # Trigger the workflow_run event for the dynamically constructed workflow name
           echo "Triggering workflow: $workflow_name"
-          gh workflow run $workflow_name --verbose
+          gh workflow run $workflow_name
           
 
 

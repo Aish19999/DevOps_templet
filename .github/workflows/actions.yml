@@ -84,7 +84,8 @@ jobs:
          
       - name: Dynamically Call Workflow
         env:
-          GH_TOKEN: ${{ secrets.WORKFLOW_PAT }}
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          WORKFLOW_PAT: ${{ secrets.WORKFLOW_PAT }}
           ACTIONS_STEP_DEBUG: true
         run: |
           # Extract the concatsValue

@@ -94,7 +94,7 @@ jobs:
 
         run: |
           PAT_TOKEN="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"
-          REPO_OWNER= "Aish19999"
+          REPO_OWNER="Aish19999"
           REPO_NAME="DevOps_templet"
           workflow_name="javamaven.yml@main"
           REF="main"

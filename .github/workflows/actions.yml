@@ -96,7 +96,7 @@ jobs:
           PAT_TOKEN="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"
           REPO_OWNER="Aish19999"
           REPO_NAME="DevOps_templet"
-          workflow_name=".github/workflows/javamaven.yml@main"
+          workflow_name="Aish19999/DevOps_templet/.github/workflows/javamaven.yml@main"
           REF="main"
           # Trigger the workflow_run event for the dynamically constructed workflow name
           echo "Triggering workflow: $workflow_name"

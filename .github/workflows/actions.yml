@@ -93,7 +93,7 @@ jobs:
           ACTIONS_STEP_DEBUG: true
 
         run: |
-          GH_TOKEN:${{secrets.GITHUB_TOKEN}}
+    
           REPO_OWNER="Aish19999"
           REPO_NAME="DevOps_templet"
           workflow_name="Aish19999/DevOps_templet/.github/workflows/javamaven.yml@main"
@@ -102,7 +102,7 @@ jobs:
           echo "Triggering workflow: $workflow_name"
           curl -X POST \
           -H "Accept: application/vnd.github.v3+json" \
-          -H "Authorization: token $GH_TOKEN" \
+          -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" \
           "https://api.github.com/repos/$REPO_OWNER/$REPO_NAME/actions/jobs/17248215959/rerun" \
           -d "{\"ref\":\"$REF\"}"
 

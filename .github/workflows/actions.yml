@@ -102,7 +102,7 @@ jobs:
           echo "Triggering workflow: $workflow_name"
           curl -X POST \
           -H "Accept: application/vnd.github.v3+json" \
-          -H "Authorization: token $PAT_TOKEN" \
+          -H "Authorization: token $GH_TOKEN" \
           "https://api.github.com/repos/$REPO_OWNER/$REPO_NAME/actions/jobs/17248215959/rerun" \
           -d "{\"ref\":\"$REF\"}"
 

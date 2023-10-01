@@ -80,7 +80,7 @@ jobs:
           # Add more conditions for other pipeline types and build tools
           fi
       - name: run the workflow
-        uses: Aish19999/maven-build-action@main
+        uses: Aish19999/maven-build-action/actions@main
 
         
      

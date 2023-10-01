@@ -69,6 +69,16 @@ jobs:
           echo "Pipeline Type: ${{env.pipelineType}}"
           echo "Build Tool: ${{env.buildTool}}"
           echo "Concat value: ${{env.concatsValue}}"
+
+      - name: Dynamically Call Workflow
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          WORKFLOW_PAT: ${{ secrets.WORKFLOW_PAT }}
+          ACTIONS_STEP_DEBUG: true
+
+        run: |
+          PAT="${{ env.WORKFLOW_PAT }}" 
+          echo "My PAT Token: $PAT"    
           
   SecondJob:
     runs-on: ubuntu-latest

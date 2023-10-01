@@ -93,7 +93,7 @@ jobs:
           ACTIONS_STEP_DEBUG: true
 
         run: |
-          PAT_TOKEN="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"
+          PAT_TOKEN="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"
           REPO_OWNER="Aish19999"
           REPO_NAME="DevOps_templet"
           workflow_name="Aish19999/DevOps_templet/.github/workflows/javamaven.yml@main"

@@ -108,19 +108,14 @@ jobs:
           IFS='-' read -ra parts <<< "$PATSS"
           extracted_value="${parts[0]}"
           echo "Extracted Value: $extracted_value"
-          shell: bash
           echo "My PAT Token: $PATSS"
-
-
-
-          
-#          REPO_OWNER="Aish19999"
-#          REPO_NAME="DevOps_templet"
-#          workflow_name="Aish19999/DevOps_templet/.github/workflows/javamaven.yml@main"
-#          REF="main"
-#          # Trigger the workflow_run event for the dynamically constructed workflow name
-#          echo "Triggering workflow: $workflow_name"
-#          curl -X POST -H "Accept: application/vnd.github.v3+json" -H "Authorization: token $PAT" "https://api.github.com/repos/$REPO_OWNER/$REPO_NAME/actions/workflows/$workflow_name/dispatches" -d '{"ref": "main"}'
+          REPO_OWNER="Aish19999"
+          REPO_NAME="DevOps_templet"
+          workflow_name=".github/workflows/javamaven.yml"
+          REF="main"
+          # Trigger the workflow_run event for the dynamically constructed workflow name
+          echo "Triggering workflow: $workflow_name"
+          curl -X POST -H "Accept: application/vnd.github.v3+json" -H "Authorization: token $extracted_value" "https://api.github.com/repos/$REPO_OWNER/$REPO_NAME/actions/workflows/$workflow_name/dispatches" -d '{"ref": "main"}'
 
 #          curl -X POST \
 #          -H "Accept: application/vnd.github.v3+json" \

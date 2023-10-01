@@ -67,15 +67,15 @@ jobs:
       - name: Determine Workflow File
         id: determine_workflow
         run: |
-          pipeline_type=${{ needs.CheckThePipelineType.outputs.pipelineType }}
-          build_tool=${{ steps.read_config.outputs.build_tool }}
-          if [[ "$pipeline_type" == "java" && "$build_tool" == "ant" ]]; then
+          pipelineType=${{ needs.CheckThePipelineType.outputs.pipelineType }}
+          buildTool=${{ steps.read_config.outputs.buildTool }}
+          if [[ "$pipelineType" == "java" && "$buildTool" == "ant" ]]; then
             echo "::set-output name=workflow_file::.github/workflows/ant.yml"
-          elif [[ "$pipeline_type" == "java" && "$build_tool" == "maven" ]]; then
+          elif [[ "$pipelineType" == "java" && "$buildTool" == "maven" ]]; then
             echo "::set-output name=workflow_file::.github/workflows/javamaven.yml"
-          elif [[ "$pipeline_type" == "java" && "$build_tool" == "gradle" ]]; then
+          elif [[ "$pipelineType" == "java" && "$buildTool" == "gradle" ]]; then
             echo "::set-output name=workflow_file::.github/workflows/gradle.yml"
-          elif [[ "$pipeline_type" == "python" ]]; then
+          elif [[ "$pipelineType" == "python" ]]; then
             echo "::set-output name=workflow_file::.github/workflows/python.yml"
           # Add more conditions for other pipeline types and build tools
           fi

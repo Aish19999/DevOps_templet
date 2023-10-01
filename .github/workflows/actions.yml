@@ -89,18 +89,18 @@ jobs:
       - name: Dynamically Call Workflow
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          WORKFLOW_PAT: "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"
+          WORKFLOW_PAT: ${{ secrets.WORKFLOW_PAT }}
           ACTIONS_STEP_DEBUG: true
 
         run: |
-          PAT_TOKEN="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"
+          WORKFLOW_PAT: ${{ secrets.WORKFLOW_PAT }}
           REPO_OWNER="Aish19999"
           REPO_NAME="DevOps_templet"
           workflow_name="Aish19999/DevOps_templet/.github/workflows/javamaven.yml@main"
           REF="main"
           # Trigger the workflow_run event for the dynamically constructed workflow name
           echo "Triggering workflow: $workflow_name"
-          curl -X POST -H "Accept: application/vnd.github.v3+json" -H "Authorization: Bearer $PAT_TOKEN" "https://api.github.com/repos/$REPO_OWNER/$REPO_NAME/actions/jobs/17248215959/rerun"
+          curl -X POST -H "Accept: application/vnd.github.v3+json" -H "Authorization: Bearer $WORKFLOW_PAT" "https://api.github.com/repos/$REPO_OWNER/$REPO_NAME/actions/jobs/17248215959/rerun"
           
 #          curl -X POST \
 #          -H "Accept: application/vnd.github.v3+json" \
@@ -111,7 +111,7 @@ jobs:
 
     
   
-#          PAT_TOKEN="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"    
+
 #    uses: Aish19999/DevOps_templet/.github/workflows/${{needs.CheckThePipelineType.outputs.concatsValue }}.yml@main
 #  Build:
 #     needs: CheckThePipelineType
@@ -144,8 +144,7 @@ jobs:
   #   uses: Aish19999/DevOps_templet/.github/workflows/mavenBuild.yml@6af9461f89d67b217dd61c74ebe0c18af7a9a513   
 
 
-  # TTTTTTT = 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
-        
+
     
   
    

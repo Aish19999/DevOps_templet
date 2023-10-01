@@ -79,7 +79,8 @@ jobs:
             echo "::set-output name=workflow_file::.github/workflows/python.yml"
           # Add more conditions for other pipeline types and build tools
           fi
-        
+      - name: run the workflow
+        uses: .github/workflows/javamaven.yml@main
 
         
      

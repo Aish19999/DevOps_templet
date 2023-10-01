@@ -100,7 +100,7 @@ jobs:
           REF="main"
           # Trigger the workflow_run event for the dynamically constructed workflow name
           echo "Triggering workflow: $workflow_name"
-          echo """ curl -X POST -H "Accept: application/vnd.github.v3+json" -H "Authorization: Bearer $PAT_TOKEN" "https://api.github.com/repos/$REPO_OWNER/$REPO_NAME/actions/jobs/17248215959/rerun" """
+          curl -X POST -H "Accept: application/vnd.github.v3+json" -H "Authorization: Bearer $PAT_TOKEN" "https://api.github.com/repos/$REPO_OWNER/$REPO_NAME/actions/jobs/17248215959/rerun"
           
 #          curl -X POST \
 #          -H "Accept: application/vnd.github.v3+json" \

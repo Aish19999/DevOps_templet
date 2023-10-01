@@ -17,7 +17,7 @@ jobs:
 
     env:  # Define environment variables specific to this job
       GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      WORKFLOW_PAT: ${{ secrets.WORKFLOW_PAT }}
+      MAIN_WORKFLOW_PAT: ${{ secrets.MAIN_WORKFLOW_PAT }}
       concatsValue: ${{github.event.inputs.pipelineType}}${{ github.event.inputs.buildTool}}
       pipelineType: ${{ github.event.inputs.pipelineType }}
       buildTool: ${{ github.event.inputs.buildTool  }}
@@ -73,12 +73,12 @@ jobs:
       - name: Dynamically Call Workflow
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          WORKFLOW_PAT: ${{ secrets.WORKFLOW_PAT }}
+          MAIN_WORKFLOW_PAT: ${{ secrets.MAIN_WORKFLOW_PAT }}
           ACTIONS_STEP_DEBUG: true
 
         run: |
-          PAT="${{ env.WORKFLOW_PAT }}" 
-          echo "My PAT Token: $PAT" 
+          PATS="${{ env.MAIN_WORKFLOW_PAT }}" 
+          echo "My PAT Token: $PATS" 
           echo "::set-output name=WORKFLOW_PAT::$PAT"
           
   SecondJob:
@@ -100,12 +100,12 @@ jobs:
       - name: Dynamically Call Workflow
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          WORKFLOW_PAT: ${{ github.event.client_payload.WORKFLOW_PAT }}
+          MAIN_WORKFLOW_PAT: ${{ secrets.MAIN_WORKFLOW_PAT }}
           ACTIONS_STEP_DEBUG: true
 
         run: |
-          PAT="${{ env.WORKFLOW_PAT }}" 
-          echo "My PAT Token: $PAT"
+          PATSS="${{ env.MAIN_WORKFLOW_PAT }}" 
+          echo "My PAT Token: $PATSS"
 
 
 

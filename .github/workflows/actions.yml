@@ -95,6 +95,10 @@ jobs:
         run: |
           PAT="${{ env.WORKFLOW_PAT }}" 
           echo "My PAT Token: $PAT"
+
+
+
+          
 #          REPO_OWNER="Aish19999"
 #          REPO_NAME="DevOps_templet"
 #          workflow_name="Aish19999/DevOps_templet/.github/workflows/javamaven.yml@main"

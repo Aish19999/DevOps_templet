@@ -15,11 +15,6 @@ jobs:
   CheckThePipelineType:
     runs-on: ubuntu-latest
 
-    strategy:
-      matrix:
-        pipeline_type: [java, python, dotnet]
-        build_tool: [ant, maven, gradle]
-        
     env:  # Define environment variables specific to this job
       GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       MAIN_WORKFLOW_PAT: ${{ secrets.MAIN_WORKFLOW_PAT }}
@@ -84,8 +79,7 @@ jobs:
             echo "::set-output name=workflow_file::.github/workflows/python.yml"
           # Add more conditions for other pipeline types and build tools
           fi
-        shell: bash
-
+        
 
         
      

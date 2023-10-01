@@ -67,7 +67,7 @@ jobs:
       - name: Determine Workflow File
         id: determine_workflow
         run: |
-          pipelineType=${{ needs.CheckThePipelineType.outputs.pipelineType }}
+          pipelineType=${{steps.read_config.outputs.pipelineType }}
           buildTool=${{ steps.read_config.outputs.buildTool }}
           if [[ "$pipelineType" == "java" && "$buildTool" == "ant" ]]; then
             echo "::set-output name=workflow_file::.github/workflows/ant.yml"

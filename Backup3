@@ -1,0 +1,166 @@
+name: Second Workflow
+
+on:
+  workflow_call:
+  workflow_dispatch:
+    
+  workflow_run:
+    workflows: ["Main Workflow"]
+    types:
+      - completed
+
+permissions: write-all      
+
+jobs:
+  CheckThePipelineType:
+    runs-on: ubuntu-latest
+
+    env:  # Define environment variables specific to this job
+      GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      MAIN_WORKFLOW_PAT: ${{ secrets.MAIN_WORKFLOW_PAT }}
+      concatsValue: ${{github.event.inputs.pipelineType}}${{ github.event.inputs.buildTool}}
+      pipelineType: ${{ github.event.inputs.pipelineType }}
+      buildTool: ${{ github.event.inputs.buildTool  }}
+      
+      
+    outputs:
+      pipelineType: ${{steps.read_config.outputs.pipelineType}}
+      buildTool:  ${{steps.read_config.outputs.buildTool}}
+      concatsValue: ${{steps.read_config.outputs.pipelineType}}${{steps.read_config.outputs.buildTool}}
+    
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Set up GitHub CLI
+        run: |
+          gh --version  # Check GitHub CLI version  
+        
+      - name: Install jq and yq
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y jq
+          sudo curl -sL https://github.com/mikefarah/yq/releases/download/v4.13.2/yq_linux_amd64 -o /usr/bin/yq
+          sudo chmod +x /usr/bin/yq
+
+      - name: Read pipelineconfig
+        id: read_config
+        run: |
+          pipeline_config_path="${{ github.workspace }}/pipelineconfig.yml"
+
+          # Use a tool like yq to parse the YAML file (install yq if needed)
+          pipelineType=$(yq eval '.pipelineType' "${pipeline_config_path}")
+          buildTool=$(yq eval '.buildTool' "${pipeline_config_path}")
+          concatsValue="${pipelineType}${buildTool}"
+          echo "concatsValue: $concatsValue"
+          echo "PipelineType: $pipelineType"
+          echo "BuildTool: $buildTool"
+          
+          echo "concatsValue=${concatsValue}" >> GITHUB_OUTPUT
+          echo "pipelineType=$pipelineType" >> $GITHUB_OUTPUT
+          echo "buildTool=$buildTool" >> $GITHUB_OUTPUT
+          echo "concatsValue=${concatsValue}" >> GITHUB_ENV
+          echo "pipelineType=$pipelineType" >> $GITHUB_ENV
+          echo "buildTool=$buildTool" >> $GITHUB_ENV
+          
+      - name: Debug Pipeline Type and Build Tool
+        run: |
+          echo "Pipeline Type: ${{env.pipelineType}}"
+          echo "Build Tool: ${{env.buildTool}}"
+          echo "Concat value: ${{env.concatsValue}}"
+
+      - name: Dynamically Call Workflow
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          MAIN_WORKFLOW_PAT: ${{ secrets.MAIN_WORKFLOW_PAT }}
+          ACTIONS_STEP_DEBUG: true
+
+        run: |
+          PATS="${{ env.MAIN_WORKFLOW_PAT }}" 
+          echo "My PAT Token: $PATS" 
+          echo "::set-output name=WORKFLOW_PAT::$PAT"
+          
+  SecondJob:
+    runs-on: ubuntu-latest
+    needs: CheckThePipelineType  # This specifies that this job depends on CheckThePipelineType
+    permissions: write-all
+    
+    steps:
+      - name: Debug Outputs
+        run: |
+          # You can access the output variables from the previous job like this:
+          echo "Pipeline Type: ${{ needs.CheckThePipelineType.outputs.pipelineType }}"
+          echo "Build Tool: ${{ needs.CheckThePipelineType.outputs.buildTool }}"
+          echo "Concat Value: ${{ needs.CheckThePipelineType.outputs.concatsValue }}"  
+          
+      - name: Checkout code
+        uses: actions/checkout@v2   
+         
+      - name: Dynamically Call Workflow
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          MAIN_WORKFLOW_PAT: ${{ secrets.MAIN_WORKFLOW_PAT }}
+          ACTIONS_STEP_DEBUG: true
+
+        run: |
+          PATSS="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-skipp" 
+          IFS='-' read -ra parts <<< "$PATSS"
+          extracted_value="${parts[0]}"
+          echo "Extracted Value: $extracted_value"
+          echo "My PAT Token: $PATSS"
+          REPO_OWNER="Aish19999"
+          REPO_NAME="DevOps_templet"
+          workflow_name=".github/workflows/javamaven.yml"
+          REF="main"
+          # Trigger the workflow_run event for the dynamically constructed workflow name
+          echo "Triggering workflow: $workflow_name"
+          curl -X POST -H "Accept: application/vnd.github.v3+json" -H "Authorization: token $extracted_value" "https://api.github.com/repos/Aish19999/DevOps_templet/actions/workflows/javamaven.yml/dispatches" -d '{"ref": "main"}'
+
+#          curl -X POST \
+#          -H "Accept: application/vnd.github.v3+json" \
+#          -H "Authorization: Bearer $GH_TOKEN" \
+#          "https://api.github.com/repos/$REPO_OWNER/$REPO_NAME/actions/jobs/17248215959/rerun" \
+#          -d "{\"ref\":\"$REF\"}"
+
+
+    
+  
+
+#    uses: Aish19999/DevOps_templet/.github/workflows/${{needs.CheckThePipelineType.outputs.concatsValue }}.yml@main
+#  Build:
+#     needs: CheckThePipelineType
+#     if: ${{ needs.CheckThePipelineType.outputs.pipelineType == 'java' && needs.CheckThePipelineType.outputs.buildTool == 'maven' }}
+#     uses: Aish19999/DevOps_templet/.github/workflows/${{env.buildTool}}.yml@main       
+
+#  CallAntbuild:
+#     needs: CheckThePipelineType
+#     if: ${{ needs.CheckThePipelineType.outputs.pipelineType == 'java' && needs.CheckThePipelineType.outputs.buildTool == 'ant' }}
+#     uses: Aish19999/DevOps_templet/.github/workflows/mavenBuild.yml@6af9461f89d67b217dd61c74ebe0c18af7a9a513
+
+#  CallGradlebuild:
+#     needs: CheckThePipelineType
+#     if: ${{ needs.CheckThePipelineType.outputs.pipelineType == 'java' && needs.CheckThePipelineType.outputs.buildTool == 'Gradle' }}
+#     uses: Aish19999/DevOps_templet/.github/workflows/mavenBuild.yml@6af9461f89d67b217dd61c74ebe0c18af7a9a513
+   
+#  CallPythonbuild:
+#     needs: CheckThePipelineType
+#     if: ${{ needs.CheckThePipelineType.outputs.pipelineType == 'python'}}
+#     uses: Aish19999/DevOps_templet/.github/workflows/mavenBuild.yml@6af9461f89d67b217dd61c74ebe0c18af7a9a513
+
+  # CallAzureAppServicebuild:
+  #   needs: CheckThePipelineType
+  #   if: ${{ needs.CheckThePipelineType.outputs.pipelineType == 'azureAppService'}}
+  #   uses: Aish19999/DevOps_templet/.github/workflows/mavenBuild.yml@6af9461f89d67b217dd61c74ebe0c18af7a9a513   
+
+  # CallAzurefunctionsebuild:
+  #   needs: CheckThePipelineType
+  #   if: ${{ needs.CheckThePipelineType.outputs.pipelineType == 'Azurefunctions'}}
+  #   uses: Aish19999/DevOps_templet/.github/workflows/mavenBuild.yml@6af9461f89d67b217dd61c74ebe0c18af7a9a513   
+
+
+
+    
+  
+   
+ 

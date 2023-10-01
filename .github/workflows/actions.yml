@@ -80,7 +80,7 @@ jobs:
           # Add more conditions for other pipeline types and build tools
           fi
       - name: run the workflow
-        uses: .github/workflows/javamaven.yml@main
+        uses: Aish19999/DevOps_templet/.github/workflows/javamaven.yml@main
 
         
      

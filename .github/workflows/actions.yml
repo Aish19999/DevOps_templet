@@ -93,7 +93,7 @@ jobs:
           ACTIONS_STEP_DEBUG: true
 
         run: |
-          echo "My PAT Token:WORKFLOW_PAT"
+          echo "My PAT Token:${{env.WORKFLOW_PAT}}"
           REPO_OWNER="Aish19999"
           REPO_NAME="DevOps_templet"
           workflow_name="Aish19999/DevOps_templet/.github/workflows/javamaven.yml@main"

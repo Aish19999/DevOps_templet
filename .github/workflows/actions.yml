@@ -104,7 +104,7 @@ jobs:
           ACTIONS_STEP_DEBUG: true
 
         run: |
-          PATSS="${{ env.MAIN_WORKFLOW_PAT }}" 
+          PATSS="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" 
           echo "My PAT Token: $PATSS"
 
 

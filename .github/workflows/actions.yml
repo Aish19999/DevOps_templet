@@ -89,11 +89,11 @@ jobs:
       - name: Dynamically Call Workflow
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          WORKFLOW_PAT: "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"
+          WORKFLOW_PAT: "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"
           ACTIONS_STEP_DEBUG: true
 
         run: |
-          PAT_TOKEN="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"
+          PAT_TOKEN="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"
           REPO_OWNER="Aish19999"
           REPO_NAME="DevOps_templet"
           workflow_name="Aish19999/DevOps_templet/.github/workflows/javamaven.yml@main"

@@ -63,6 +63,9 @@ jobs:
           echo "concatsValue=${concatsValue}" >> GITHUB_ENV
           echo "pipelineType=$pipelineType" >> $GITHUB_ENV
           echo "buildTool=$buildTool" >> $GITHUB_ENV
+
+      - name: trigger the pipeline
+        uses: /.github/workflows/javamaven.yml@main
           
     
         

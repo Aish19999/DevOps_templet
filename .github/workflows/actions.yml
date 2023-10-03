@@ -64,24 +64,7 @@ jobs:
           echo "pipelineType=$pipelineType" >> $GITHUB_ENV
           echo "buildTool=$buildTool" >> $GITHUB_ENV
           
-      - name: Determine Workflow File
-        id: determine_workflow
-        run: |
-          pipelineType=${{steps.read_config.outputs.pipelineType }}
-          buildTool=${{ steps.read_config.outputs.buildTool }}
-          if [[ "$pipelineType" == "java" && "$buildTool" == "ant" ]]; then
-            echo "::set-output name=workflow_file::.github/workflows/ant.yml"
-          elif [[ "$pipelineType" == "java" && "$buildTool" == "maven" ]]; then
-            echo "::set-output name=workflow_file::.github/workflows/javamaven.yml"
-          elif [[ "$pipelineType" == "java" && "$buildTool" == "gradle" ]]; then
-            echo "::set-output name=workflow_file::.github/workflows/gradle.yml"
-          elif [[ "$pipelineType" == "python" ]]; then
-            echo "::set-output name=workflow_file::.github/workflows/python.yml"
-          # Add more conditions for other pipeline types and build tools
-          fi
-      - name: run the workflow
-        uses: Aish19999/maven-build-action/actions@main
-
+    
         
      
     

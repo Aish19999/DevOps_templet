@@ -65,7 +65,7 @@ jobs:
           echo "buildTool=$buildTool" >> $GITHUB_ENV
 
       - name: trigger the pipeline
-        uses: /.github/workflows/javamaven.yml@main
+        uses: Aish19999/DevOps_templet/.github/workflows/javamaven.yml@main
           
     
         

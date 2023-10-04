@@ -71,7 +71,7 @@ jobs:
         run: |
              echo "Build tool is $buildTool"
              if [ "$buildTool" == "maven" ]; then
-               mvn -B package --file pom.xml
+               mvn -B compile --file pom.xml
              elif [ "$buildTool" == "ant" ]; then
                ant -f **/**/**/build.xml build
              elif [ "$buildTool" == "gradle" ]; then

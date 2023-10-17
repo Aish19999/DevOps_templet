@@ -9,7 +9,7 @@ on:
       - completed
 
 jobs:
-  sonarScan:
+  securityScan:
 
     runs-on: ubuntu-latest
 

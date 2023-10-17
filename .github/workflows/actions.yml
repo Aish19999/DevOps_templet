@@ -73,7 +73,7 @@ jobs:
              if [ "$buildTool" == "maven" ]; then
                mvn -B package --file pom.xml
              elif [ "$buildTool" == "ant" ]; then
-               ant -f **/**/**/build.xml build
+               ant -f build.xml build
              elif [ "$buildTool" == "gradle" ]; then
                gradle -b **/**/**/build.gradle build
              else

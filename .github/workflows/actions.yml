@@ -89,6 +89,11 @@ jobs:
      needs: Build
      uses: Aish19999/DevOps_templet/.github/workflows/sonarAnalysis.yml@main
 
+  Security_Scan:
+     needs: Build
+     uses: Aish19999/DevOps_templet/.github/workflows/securityScan.yml@main
+  
+
 #  CallAntbuild:
 #     needs: CheckThePipelineType
 #     if: ${{ needs.CheckThePipelineType.outputs.pipelineType == 'java' && needs.CheckThePipelineType.outputs.buildTool == 'ant' }}

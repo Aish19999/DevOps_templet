@@ -75,7 +75,8 @@ jobs:
              elif [ "$buildTool" == "ant" ]; then
                ant -f build.xml build
              elif [ "$buildTool" == "gradle" ]; then
-               gradle -b build.gradle build
+              # gradle -b build.gradle build
+               ./gradlew build
              else
                echo "Unsupported build tool: $buildTool"
                exit 1  # Exit with an error code for unsupported build tools

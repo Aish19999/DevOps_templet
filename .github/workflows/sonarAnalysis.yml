@@ -1,0 +1,37 @@
+name: Java maven build
+
+on:
+  workflow_call:
+  workflow_dispatch:
+  workflow_run:
+    workflows: ["Second Workflow"]
+    types:
+      - completed
+      
+permissions: read-all|write-all
+
+jobs:
+  build_test:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v3
+    - name: Set up JDK 1.8
+      uses: actions/setup-java@v3
+      with:
+        java-version: 17
+        distribution: 'temurin'
+        cache: maven
+    - name: Build with maven
+      run: mvn -B compile --file pom.xml
+
+    - name: Sonar Analysis  
+      run: |
+          echo "analysing the code"
+
+    - name: Security scan
+      run: |
+          echo "Runnning security scan"
+     
+     

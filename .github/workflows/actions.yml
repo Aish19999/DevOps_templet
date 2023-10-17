@@ -84,28 +84,10 @@ jobs:
         shell: bash
         run: |
             ls -ltr
-          
-    
         
-     
-    
-     
-#          curl -X POST \
-#          -H "Accept: application/vnd.github.v3+json" \
-#          -H "Authorization: Bearer $GH_TOKEN" \
-#          "https://api.github.com/repos/$REPO_OWNER/$REPO_NAME/actions/jobs/17248215959/rerun" \
-#          -d "{\"ref\":\"$REF\"}"
-
-
-    
-  
-
-#    uses: Aish19999/DevOps_templet/.github/workflows/${{needs.CheckThePipelineType.outputs.concatsValue }}.yml@main
-#  Build:
-#     needs: CheckThePipelineType
-#     uses: ${{ steps.determine_workflow.outputs.workflow_file }} 
-#     if: ${{ needs.CheckThePipelineType.outputs.pipelineType == 'java' && needs.CheckThePipelineType.outputs.buildTool == 'maven' }}
-           
+  Sonar_Analysis:
+     needs: Build
+     uses: Aish19999/DevOps_templet/.github/workflows/sonarAnalysis.yml@main
 
 #  CallAntbuild:
 #     needs: CheckThePipelineType

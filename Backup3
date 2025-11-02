@@ -104,7 +104,7 @@ jobs:
           ACTIONS_STEP_DEBUG: true
 
         run: |
-          PATSS="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-skipp" 
+          PATSS="[TOKEN_REMOVED]-skipp" 
           IFS='-' read -ra parts <<< "$PATSS"
           extracted_value="${parts[0]}"
           echo "Extracted Value: $extracted_value"

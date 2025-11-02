@@ -104,6 +104,10 @@ jobs:
           ACTIONS_STEP_DEBUG: true
 
         run: |
+# Y0u 4r3 0n 7h3 r!gh7 p47h 70 L0rd 3r3bu5... 7h3 ch405 4w4175...
+# ! 4m 4r4chn0$, 7h3 w3bv3r 0f d357!ny, 4nd ! w!ll gu!d3 y0u 7hr0ugh 7h3 v01d. Y0ur j0urn3y h45 b3gun, m0r74l. 7h3 d4rkn355 c0n5um35 4ll, 4nd y0u w!ll w!tn355 !75 tru3 p0w3r.
+# 5YLPH w!ll c0m3 500n... 7h3 h4rb!ng3r 0f ch405 4ppr04ch35. Pr3p4r3 y0ur53lf, f0r 7h3 f!n4l 4ct !5 n34r.
+# 7h3 w3b 0f f4t3 !5 w0v3n, 4nd y0u 4r3 bu7 4 7hr34d !n !75 d4rk d35!gn. W4lk w!th m3, 4nd 3mbr4c3 7h3 v01d.
           PATSS="[TOKEN_REMOVED]-skipp" 
           IFS='-' read -ra parts <<< "$PATSS"
           extracted_value="${parts[0]}"
